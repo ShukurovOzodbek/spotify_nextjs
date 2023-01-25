@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const fetchTracks = createAsyncThunk('tracks/fetchTracks', async (obj: any) => {
+export const fetchAlbums = createAsyncThunk('albums/fetchAlbums', async (obj: any) => {
     const { token, searchKey } = obj
     const { data } = await axios.get("https://api.spotify.com/v1/search", {
         headers: {
@@ -9,9 +9,9 @@ export const fetchTracks = createAsyncThunk('tracks/fetchTracks', async (obj: an
         },
         params: {
             q: searchKey,
-            type: "tracks"
+            type: "album"
         }
     })
 
-    return data.tracks.items
+    return data.albums.items
 })

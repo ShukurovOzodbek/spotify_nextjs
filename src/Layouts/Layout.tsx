@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Stack } from '@mui/material'
 import SVGIcons from '@/components/SVGIcons'
 import Links from '@/components/Links'
@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import axios from 'axios'
 
 interface Props {
     children: JSX.Element
@@ -41,6 +42,24 @@ interface IArg {
 }
 
 const Layout: FC<Props> = ({ children }) => {
+    const [name, setName] = React.useState("")
+
+    useEffect(() => {
+        async function set() {
+            let token = localStorage.getItem('token')
+            await axios.get("https://api.spotify.com/v1/me", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            })
+                .then(res => {
+                    setName(res.data.display_name)
+                    console.log(res.data);
+                })
+        }
+        set()
+    }, [])
+
     return (
         <Stack sx={{ width: "100%", height: '100vh', flexDirection: 'row' }} >
             <Stack sx={{ width: '17%', height: '100%', padding: '0 30px', display: 'flex', gap: "20px", background: 'black' }}>
@@ -74,7 +93,7 @@ const Layout: FC<Props> = ({ children }) => {
                                 <img style={{ width: '100%', height: '100%' }} src="https://i1.sndcdn.com/artworks-000446065350-6k6hrf-t500x500.jpg" alt="profile" />
                             </Box>
                             <Stack>
-                                <Typography sx={{ color: 'white', fontSize: '13px' }}>DisplayName</Typography>
+                                <Typography sx={{ color: 'white', fontSize: '13px' }}>{name}</Typography>
                                 <Typography sx={{ color: 'gray', mt: '-3px', fontStyle: "italic", fontSize: '13px' }}>PremiumUser</Typography>
                             </Stack>
                         </Stack>
