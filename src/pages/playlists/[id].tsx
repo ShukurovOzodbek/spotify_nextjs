@@ -8,6 +8,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const playlistId = () => {
   const [myData, setMyData] = useState([])
@@ -48,6 +50,20 @@ const playlistId = () => {
     getAllAlbums()
   }, [id])
 
+  const map: any = {
+    1: "jan",
+    2: "feb",
+    3: "mar",
+    4: "apr",
+    5: "may",
+    6: "jun",
+    7: "jul",
+    8: "aug",
+    9: "sep",
+    10: "oct",
+    11: "nov",
+    12: "dec",
+  }
 
   return (
     <Layout background={`linear-gradient(180deg, #1e1e1e 0%, #000000 100%)`} >
@@ -64,7 +80,7 @@ const playlistId = () => {
             <Stack sx={{ gap: "20px", background: 'transparent', flexDirection: "row", alignItems: 'flex-end' }}>
               <img src={!data[0]?.url ? image : data[0]?.url} style={{ width: '250px', height: '250px', objectFit: 'cover', boxShadow: '0px 0px 8px 10px rgba(34, 60, 80, 0.07)' }} alt="" />
               <Stack>
-                <Typography sx={{ color: "White", fontWeight: "700", fontSize: '18px' }}>Album</Typography>
+                <Typography sx={{ color: "White", fontWeight: "700", fontSize: '18px' }}>Open playist</Typography>
                 <Typography sx={{ color: "White", fontWeight: "700", fontSize: '62px' }}>{data2}</Typography>
                 <Typography sx={{ color: 'white', fontWeight: "500", fontSize: '20px' }} > lorem : ipsum : {myData.length} tracks </Typography>
               </Stack>
@@ -73,7 +89,7 @@ const playlistId = () => {
               <Button variant='contained' sx={[{ borderRadius: "100%", color: 'white', background: '#1DB954', minWidth: "0", width: '58px', height: '58px', transition: ".3s ease" }, { '&:hover': { background: '#10A043' } }]}>
                 <PlayArrowIcon sx={{ color: 'black', fontSize: "37px" }} />
               </Button>
-              <FavoriteBorderIcon sx={{ color: '#989898', fontSize: '48px', fontWeight: '500', cursor: 'pointer' }} />
+              <FavoriteBorderIcon sx={{ color: '#989898', fontSize: '48px', fontWeight: '200', cursor: 'pointer' }} />
             </Stack>
             <Stack sx={{ width: '100%', paddingTop: "30px" }}>
               <ol>
@@ -81,7 +97,10 @@ const playlistId = () => {
                   <Stack sx={{ flexDirection: 'row', gap: "14px" }}>
                     <Typography sx={{ color: '#989898', fontSize: '18px', fontWeight: "600", }}>Name</Typography>
                   </Stack>
-                  <Typography sx={{ width: '50px', textAlign: 'left' }}>
+                  <Stack sx={{ flexDirection: 'row', gap: "14px" }}>
+                    <Typography sx={{ color: '#989898', fontSize: '18px', fontWeight: "600", }}>Date</Typography>
+                  </Stack>
+                  <Typography sx={{ width: '90px' }}>
                     <AccessTimeIcon sx={{ color: '#989898', fontWeight: '600' }} />
                   </Typography>
                 </li>
@@ -89,10 +108,15 @@ const playlistId = () => {
                   myData.length === 0 ? <Typography sx={{ color: '#989898', display: 'flex', gap: "10px", alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: "600", textAlign: 'center' }}> <ErrorOutlineIcon sx={{ fontSize: '32px' }} /> There we have not tracks</Typography> : myData.map((i: any) => (
                     <li className='lis' key={i.track.id}>
                       <Stack sx={{ flexDirection: 'row', gap: "14px", alignItems: 'center' }}>
-                        <img src={!data[0]?.url ? image : data[0]?.url} style={{ width: '38px', height: '38px', objectFit: 'cover', boxShadow: '0px 0px 8px 10px rgba(34, 60, 80, 0.07)', borderRadius: '4px' }} alt="" />
+                        <img src={!data[0]?.url ? image : data[0]?.url} style={{ width: '38px', height: '38px', objectFit: 'cover', borderRadius: '4px' }} alt="" />
                         <Typography sx={{ fontSize: '16px', fontWeight: '400', textAlign: 'left' }} >{i.track.name}</Typography>
                       </Stack>
-                      <Typography sx={{ fontSize: '16px', fontWeight: '400', textAlign: 'left' }} >0{Math.floor((i.track.duration_ms / 1000 / 60) << 0)} : {Math.floor((i.track.duration_ms / 1000) % 60) < 10 ? `0${Math.floor((i.track.duration_ms / 1000) % 60)}` : Math.floor((i.track.duration_ms / 1000) % 60)}</Typography>
+                      <Stack sx={{ flexDirection: 'row', gap: "14px", alignItems: 'center', position: 'absolute', left: '42.3%' }}>
+                        <Typography sx={{ fontSize: '16px', fontWeight: '400', textAlign: 'left' }} >{i.added_at.split(":").join("").split("T")[0].split('-')[2]} {`${map[i.added_at.split(":").join("").split("T")[0].split('-')[1]]}`} {i.added_at.split(":").join("").split("T")[0].split('-')[0]} y</Typography>
+                      </Stack>
+                      <FavoriteBorderIcon sx={{ position: "absolute", right: '30%', transition: '.1s ease', opacity: "0" }} />
+                      <Typography sx={{ fontSize: '16px', fontWeight: '400', width: '120px' }} >0{Math.floor((i.track.duration_ms / 1000 / 60) << 0)} : {Math.floor((i.track.duration_ms / 1000) % 60) < 10 ? `0${Math.floor((i.track.duration_ms / 1000) % 60)}` : Math.floor((i.track.duration_ms / 1000) % 60)}</Typography>
+                      <MoreHorizIcon sx={{ position: 'absolute', right: "1%", transition: '.1s ease', opacity: "0" }} />
                     </li>
                   ))
                 }

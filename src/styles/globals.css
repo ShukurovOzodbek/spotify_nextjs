@@ -46,7 +46,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  transition: .2s ease;
+  transition: .1s ease;
 }
 .lis{
   cursor: pointer;
@@ -59,6 +59,10 @@ a:hover {
 }
 ol {
   padding-bottom: 30px;
+}
+
+.lis:hover .MuiSvgIcon-root{
+	opacity: 1;
 }
 
 .loading {
