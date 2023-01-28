@@ -10,7 +10,7 @@ const EveryDayMix:React.FC<Props> = ({ arr }) => {
     return (
         <Stack sx={{ color: 'white', mb: "20px", gap: '24px', flexDirection: "row", flexWrap: 'wrap' }}>
             {
-                arr.map((item: any) => <EveryDay item={item} />)
+                arr.map((item: any) => <EveryDay item={item} key={item.name} />)
             }
         </Stack>
     )

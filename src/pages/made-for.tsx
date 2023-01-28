@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Typography, Stack } from '@mui/material'
 import BestMixes from '@/components/BestMixes'
 import MadeFor from '@/components/MadeFor'
-import { getAlbums } from '@/composables/getAlbums'
+import { getAlbums } from '@/hook/getAlbums'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAlbums } from '@/store/features/albums/albumThunk'
 

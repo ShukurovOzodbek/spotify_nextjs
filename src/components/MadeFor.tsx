@@ -10,7 +10,7 @@ const MadeFor:React.FC<Props> = ({ arr }) => {
   return (
     <Stack sx={{ color: 'white', mb: "20px", gap: '24px', flexDirection: "row", flexWrap: 'wrap', width: '100%' }}>
       {
-        arr.map((item: any) => <BestMixes item={item} />)
+        arr.map((item: any) => <BestMixes item={item} key={item.name} />)
       }
     </Stack>
   )

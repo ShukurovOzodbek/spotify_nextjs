@@ -7,9 +7,11 @@ import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 interface Props {
     children: JSX.Element
+    background?: string
 }
 const linksArr = [
     {
@@ -41,8 +43,11 @@ interface IArg {
     text: string
 }
 
-const Layout: FC<Props> = ({ children }) => {
+const Layout: FC<Props> = ({ children, background }) => {
     const [name, setName] = React.useState("")
+    const [myData, setMyData] = React.useState([])
+
+    const router = useRouter()
 
     useEffect(() => {
         async function set() {
@@ -54,11 +59,24 @@ const Layout: FC<Props> = ({ children }) => {
             })
                 .then(res => {
                     setName(res.data.display_name)
-                    console.log(res.data);
                 })
         }
         set()
     }, [])
+
+    useEffect(() => {
+        async function getAllAlbums() {
+          let token = localStorage.getItem('token')
+          await axios.get("https://api.spotify.com/v1/me/playlists", {
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+          }).then(res => {
+            setMyData(res.data.items)            
+          })
+        }
+        getAllAlbums()
+      }, [])
 
     return (
         <Stack sx={{ width: "100%", height: '100vh', flexDirection: 'row' }} >
@@ -74,8 +92,13 @@ const Layout: FC<Props> = ({ children }) => {
                 <Stack sx={{ width: '100%', borderBottom: '1px solid gray', marginTop: '10px', marginBottom: '10px' }}></Stack>
                 <Links item={liked} />
                 <Stack sx={{ width: '100%', borderBottom: '1px solid gray', marginTop: '10px', marginBottom: '10px' }}></Stack>
+                <Stack sx={{ gap: "10px" }}> 
+                    {
+                        myData.map((item: any) => <Link style={{ color: "white", textDecoration: 'none', fontWeight: '400', opacity: router.asPath.split('/')[2] === item.id ? '1' :'0.4' }} href={`/playlists/${item.id}`} key={item.id} >{item.name}</Link>)
+                    }
+                </Stack>
             </Stack>
-            <Stack sx={{ width: '83%', height: '100vh', background: 'linear-gradient(180deg, #1E1E1E 0%, #000000 100%)' }}>
+            <Stack sx={{ width: '83%', height: '100vh', background: !background ? 'linear-gradient(180deg, #1E1E1E 40%, #000000 100%)' : background  }}>
                 <Stack sx={{ justifyContent: "space-between", flexDirection: "row", alignItems: 'center', width: '100%', padding: '50px 25px', height: '10%' }}>
                     <Stack sx={{ flexDirection: 'row', gap: '40px', alignItems: 'center' }}>
                         <Stack sx={{ flexDirection: 'row', alignItems: 'center', gap: '10px' }}>
@@ -84,7 +107,7 @@ const Layout: FC<Props> = ({ children }) => {
                         </Stack>
                         <Stack sx={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
                             <SVGIcons icon="search2" />
-                            <input type="text" placeholder='Artists, songs, or podcasts' style={{ width: '300px', padding: "8px 32px", fontSize: "16px", borderRadius: '30px', outline: "none" }} />
+                            <input type="text" placeholder='Artists, songs, or podcasts' style={{ width: '300px', padding: "8px 32px", fontSize: "16px", borderRadius: '30px', outline: "none", border: 'none' }} />
                         </Stack>
                     </Stack>
                     <Link href={'/accaunt/settings'} style={{ textDecoration: 'none' }}>

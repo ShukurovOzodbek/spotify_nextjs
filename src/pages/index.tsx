@@ -1,7 +1,7 @@
 import Layout from "@/Layouts/Layout";
 import EveryDayMix from "@/components/EveryDayMix";
 import MadeFor from "@/components/MadeFor";
-import { getAlbums } from "@/composables/getAlbums";
+import { getAlbums } from "@/hook/getAlbums";
 import { fetchAlbums } from "@/store/features/albums/albumThunk";
 import { Stack } from "@mui/material";
 import Link from "@mui/material/Link";
@@ -14,6 +14,7 @@ import React from 'react'
 
 export default function Home() {
   const [data, setData] = React.useState([])
+  const [myData, setMyData] = React.useState([])
   const router = useRouter()
   const dispatch = useDispatch<any>()
   const albums = useSelector((state: any) => state.albums.albums)
@@ -43,18 +44,35 @@ export default function Home() {
         },
       }).then(res => {
         setData(res.data.albums.items)
-        console.log(res.data.albums.items);
       })
     }
     getAllAlbums()
   }, [])
 
+  useEffect(() => {
+    async function getAllAlbums() {
+      let token = localStorage.getItem('token')
+      await axios.get("https://api.spotify.com/v1/me/playlists?limit=50&offset=0", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      }).then(res => {
+        setMyData(res.data.items)
+      })
+    }
+    getAllAlbums()
+  }, [])
+
+  useEffect(() => {
+    console.log(router);
+  }, [])
+  
   return (
     <Layout>
       <Stack sx={{ width: '100%', height: "100%", padding: "20px 0px", gap: "10px" }}>
         <Stack sx={{ gap: '15px' }}>
           <Typography sx={{ fontSize: '28px', color: "white", textDecoration: 'none', fontWeight: '600' }} >Have a good day </Typography>
-          <EveryDayMix arr={getAlbums(albums, 6)} />
+          <EveryDayMix arr={myData} />
         </Stack>
         <Stack sx={{ gap: '15px', mb: "20px" }}>
           <Link href="/albums" sx={[{ fontSize: '24px', color: "white", textDecoration: 'none', fontWeight: '600' }, { '&:hover': { textDecoration: 'underline white' } }]}>Albums that can be liked by you</Link>
