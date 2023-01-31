@@ -2,7 +2,17 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/login": "pages/login.js",
-  "/playlists/[id]": "pages/playlists/[id].js"
+  "/404": "pages/404.html",
+  "/accaunt/settings": "pages/accaunt/settings.html",
+  "/albums/[id]": "pages/albums/[id].html",
+  "/albums": "pages/albums.html",
+  "/api/hello": "pages/api/hello.js",
+  "/": "pages/index.html",
+  "/library": "pages/library.html",
+  "/liked": "pages/liked.html",
+  "/login": "pages/login.html",
+  "/made-for": "pages/made-for.html",
+  "/playlists/[id]": "pages/playlists/[id].html",
+  "/playlists": "pages/playlists.html",
+  "/search": "pages/search.html"
 }

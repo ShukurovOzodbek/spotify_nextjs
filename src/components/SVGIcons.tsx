@@ -2,11 +2,11 @@ import React from 'react'
 
 interface Props {
     icon: string,
-    width?: string,
-    height?: string
+    width?: any,
+    height?: any
 }
 
-const SVGIcons: React.FC<Props> = ({ icon, width, height }) => {
+const SVGIcons:React.FC<Props> = ({ icon, width, height }) => {
     switch (icon) {
         case 'logo':
             return (
@@ -54,6 +54,10 @@ const SVGIcons: React.FC<Props> = ({ icon, width, height }) => {
                     <path d="M7.25 12.5C10.1495 12.5 12.5 10.1495 12.5 7.25C12.5 4.35051 10.1495 2 7.25 2C4.35051 2 2 4.35051 2 7.25C2 10.1495 4.35051 12.5 7.25 12.5Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
                     <path d="M10.9622 10.9625L13.9997 14.0001" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
+            )
+        default:
+            return (
+                <div></div>
             )
     }
 }
