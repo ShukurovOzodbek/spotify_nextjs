@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState , useContext} from 'react'
 import { Stack } from '@mui/material'
 import SVGIcons from '@/components/SVGIcons'
 import Links from '@/components/Links'
@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import AudioPlayer from 'react-h5-audio-player';
+import { songContext } from '@/contexts/songContext'
 
 interface Props {
     children: JSX.Element
@@ -47,20 +48,15 @@ interface IArg {
 const Layout: FC<Props> = ({ children, background }) => {
     const [name, setName] = React.useState("")
     const [myData, setMyData] = React.useState([])
+    const [value, setValue] = useState<any>({})
     const image = 'https://i.ytimg.com/vi/pvlakjE8h6Q/maxresdefault.jpg'
-
     const router = useRouter()
-    let images: string = ""
-    let songName: string = ""
-    let uri: string = ""
-    let artist: string = ""
 
+    const {val} = useContext(songContext)
+    
     useEffect(() => {
-        images = localStorage.getItem("image") || ""
-        songName = localStorage.getItem("songName") || ""
-        artist = localStorage.getItem("artist") || ""
-        uri = localStorage.getItem("uri") || ""
-    }, [])
+        setValue(val)
+    }, [val])
 
     useEffect(() => {
         async function set() {
@@ -90,7 +86,6 @@ const Layout: FC<Props> = ({ children, background }) => {
         }
         getAllAlbums()
     }, [])
-
     return (
         <Stack sx={{ width: "100%", height: '100vh', flexDirection: 'row' }} >
             <Stack sx={{ width: '17%', height: '100%', padding: '0 30px', display: 'flex', gap: "20px", background: 'black' }}>
@@ -111,19 +106,19 @@ const Layout: FC<Props> = ({ children, background }) => {
                     }
                 </Stack>
             </Stack>
-            <Stack sx={{ zIndex: "1000", flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: '90px', width: "100%", color: "white", bottom: "0", left: '0', right: "0", position: 'absolute', padding: "15px 25px" }}>
-                <Stack sx={{ flexDirection: 'row', alignItems: 'center', gap: "10px" }}>
-                    <img src={images || image} style={{ width: '53px', height: '53px', objectFit: 'cover', borderRadius: '5px' }} alt="" />
+            <Stack sx={{ zIndex: "1000", flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: '90px', width: "100%", color: "white", bottom: "0", left: '0', right: "0", position: 'absolute', padding: "15px 25px", background: "black" }}>
+                <Stack sx={{ flexDirection: 'row', width: '200px', alignItems: 'center', gap: "10px" }}>
+                    <img src={value.image || image} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '5px' }} alt="" />
                     <Stack>
-                        <Typography sx={{ lineHeight: '18px', }} >Tentra</Typography>
-                        <Typography sx={{ lineHeight: '17px', fontSize: '14px', color: '#999999' }}>Miyagi & Эндшпиль</Typography>
+                        <Typography sx={{ lineHeight: '18px', }} > {value.songName} </Typography>
+                        <Typography sx={{ lineHeight: '18px', fontSize: '14px', color: '#999999' }}>{value.artist}</Typography>
                     </Stack>
                 </Stack>
                 <AudioPlayer
-                    src="https://p.scdn.co/mp3-preview/83fb6d749bedd19fc4a6c1f7dcfe51bc8e94e00d?cid=4109f1d797b647deb42f11dd69907b49"
+                    src={value.uri}
                 />
                 <Stack>
-                    
+
                 </Stack>
             </Stack>
             <Stack sx={{ width: '83%', height: '100vh', background: 'linear-gradient(180deg, #1E1E1E 40%, #000000 100%)' }}>

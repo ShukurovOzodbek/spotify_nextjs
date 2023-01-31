@@ -1,9 +1,10 @@
 import Stack from '@mui/material/Stack'
-import React from 'react'
+import React, {useContext} from 'react'
 import Typography from '@mui/material/Typography'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { songContext } from '@/contexts/songContext';
 
 interface IProps {
     images: string,
@@ -25,10 +26,18 @@ const map: any = {
     11: "nov",
     12: "dec",
 }
+
 const SongItem: React.FC<IProps> = ({ images, image, i }) => {
+
+    const {changeSong} = useContext(songContext)
+
+    const handleClick = () => {
+        console.log(i.track);
+        changeSong({ image: i?.track?.album?.images[0]?.url, uri: i?.track?.preview_url, artist: i?.track?.artists[0].name, songName: i?.track?.name })
+    }
     return (
-        <li className='lis' key={i.track.id}>
-            <Stack sx={{ flexDirection: 'row', gap: "14px", alignItems: 'center' }}>
+        <li className='lis'>
+            <Stack sx={{ flexDirection: 'row', gap: "14px", alignItems: 'center' }} onClick={handleClick}>
                 <img src={images || image} style={{ width: '38px', height: '38px', objectFit: 'cover', borderRadius: '4px' }} alt="" />
                 <Typography sx={{ fontSize: '16px', fontWeight: '400', textAlign: 'left' }} >{i.track.name}</Typography>
             </Stack>
