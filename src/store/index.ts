@@ -5,7 +5,7 @@ import albumsSlice from "./features/albums/albumsSlice";
 export const store = configureStore({
     reducer: {
         tracks: trackSlice,
-        albums: albumsSlice
+        albums: albumsSlice,
     }
 })
 

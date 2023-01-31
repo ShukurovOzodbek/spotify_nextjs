@@ -8,6 +8,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import AudioPlayer from 'react-h5-audio-player';
 
 interface Props {
     children: JSX.Element
@@ -46,8 +47,20 @@ interface IArg {
 const Layout: FC<Props> = ({ children, background }) => {
     const [name, setName] = React.useState("")
     const [myData, setMyData] = React.useState([])
+    const image = 'https://i.ytimg.com/vi/pvlakjE8h6Q/maxresdefault.jpg'
 
     const router = useRouter()
+    let images: string = ""
+    let songName: string = ""
+    let uri: string = ""
+    let artist: string = ""
+
+    useEffect(() => {
+        images = localStorage.getItem("image") || ""
+        songName = localStorage.getItem("songName") || ""
+        artist = localStorage.getItem("artist") || ""
+        uri = localStorage.getItem("uri") || ""
+    }, [])
 
     useEffect(() => {
         async function set() {
@@ -66,17 +79,17 @@ const Layout: FC<Props> = ({ children, background }) => {
 
     useEffect(() => {
         async function getAllAlbums() {
-          let token = localStorage.getItem('token')
-          await axios.get("https://api.spotify.com/v1/me/playlists", {
-            headers: {
-              Authorization: `Bearer ${token}`
-            },
-          }).then(res => {
-            setMyData(res.data.items)            
-          })
+            let token = localStorage.getItem('token')
+            await axios.get("https://api.spotify.com/v1/me/playlists", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            }).then(res => {
+                setMyData(res.data.items)
+            })
         }
         getAllAlbums()
-      }, [])
+    }, [])
 
     return (
         <Stack sx={{ width: "100%", height: '100vh', flexDirection: 'row' }} >
@@ -92,13 +105,28 @@ const Layout: FC<Props> = ({ children, background }) => {
                 <Stack sx={{ width: '100%', borderBottom: '1px solid gray', marginTop: '10px', marginBottom: '10px' }}></Stack>
                 <Links item={liked} />
                 <Stack sx={{ width: '100%', borderBottom: '1px solid gray', marginTop: '10px', marginBottom: '10px' }}></Stack>
-                <Stack sx={{ gap: "10px" }}> 
+                <Stack sx={{ gap: "10px" }}>
                     {
-                        myData.map((item: any) => <Link style={{ color: "white", textDecoration: 'none', fontWeight: '400', opacity: router.asPath.split('/')[2] === item.id ? '1' :'0.4' }} href={`/playlists/${item.id}`} key={item.id} >{item.name}</Link>)
+                        myData.map((item: any) => <Link style={{ color: "white", textDecoration: 'none', fontWeight: '400', opacity: router.asPath.split('/')[2] === item.id ? '1' : '0.4' }} href={`/playlists/${item.id}`} key={item.id} >{item.name}</Link>)
                     }
                 </Stack>
             </Stack>
-            <Stack sx={{ width: '83%', height: '100vh', background: !background ? 'linear-gradient(180deg, #1E1E1E 40%, #000000 100%)' : background  }}>
+            <Stack sx={{ zIndex: "1000", flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: '90px', width: "100%", color: "white", bottom: "0", left: '0', right: "0", position: 'absolute', padding: "15px 25px" }}>
+                <Stack sx={{ flexDirection: 'row', alignItems: 'center', gap: "10px" }}>
+                    <img src={images || image} style={{ width: '53px', height: '53px', objectFit: 'cover', borderRadius: '5px' }} alt="" />
+                    <Stack>
+                        <Typography sx={{ lineHeight: '18px', }} >Tentra</Typography>
+                        <Typography sx={{ lineHeight: '17px', fontSize: '14px', color: '#999999' }}>Miyagi & Эндшпиль</Typography>
+                    </Stack>
+                </Stack>
+                <AudioPlayer
+                    src="https://p.scdn.co/mp3-preview/83fb6d749bedd19fc4a6c1f7dcfe51bc8e94e00d?cid=4109f1d797b647deb42f11dd69907b49"
+                />
+                <Stack>
+                    
+                </Stack>
+            </Stack>
+            <Stack sx={{ width: '83%', height: '100vh', background: 'linear-gradient(180deg, #1E1E1E 40%, #000000 100%)' }}>
                 <Stack sx={{ justifyContent: "space-between", flexDirection: "row", alignItems: 'center', width: '100%', padding: '50px 25px', height: '10%' }}>
                     <Stack sx={{ flexDirection: 'row', gap: '40px', alignItems: 'center' }}>
                         <Stack sx={{ flexDirection: 'row', alignItems: 'center', gap: '10px' }}>
@@ -122,7 +150,7 @@ const Layout: FC<Props> = ({ children, background }) => {
                         </Stack>
                     </Link>
                 </Stack>
-                <Stack sx={{ width: '100%', padding: '10px 25px 0 25px', height: '90%', overflowY: 'scroll' }}>
+                <Stack sx={{ width: '100%', padding: '10px 25px 0 25px', height: '75%', overflowY: 'scroll' }}>
                     {children}
                 </Stack>
             </Stack>

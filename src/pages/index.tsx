@@ -62,10 +62,6 @@ export default function Home() {
     }
     getAllAlbums()
   }, [])
-
-  useEffect(() => {
-    console.log(router);
-  }, [])
   
   return (
     <Layout>
