@@ -31,7 +31,7 @@ a:hover {
 	top: 13px;
 }
 
-.css-1mudpii-MuiStack-root:hover button {
+.css-1mudpii-MuiStack-root:hover button, .css-164wgzg:hover button {
 	opacity: 1;
 	bottom: 105px;
 }
