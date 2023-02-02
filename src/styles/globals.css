@@ -26,12 +26,12 @@ a:hover {
 	opacity: 1;
 }
 
-.css-9slduv-MuiStack-root:hover button {
+.css-9slduv-MuiStack-root:hover button, .css-164wgzg:hover button  {
 	opacity: 1;
 	top: 13px;
 }
 
-.css-1mudpii-MuiStack-root:hover button, .css-164wgzg:hover button {
+.css-1mudpii-MuiStack-root:hover button{
 	opacity: 1;
 	bottom: 105px;
 }
