@@ -15,7 +15,6 @@ const albums = () => {
                 },
             }).then(res => {
                 setData(res.data.albums.items)
-                console.log(res.data.albums.items);
             })
         }
         getAllAlbums()

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState , useContext} from 'react'
+import React, { FC, useEffect, useState, useContext } from 'react'
 import { Stack } from '@mui/material'
 import SVGIcons from '@/components/SVGIcons'
 import Links from '@/components/Links'
@@ -48,12 +48,13 @@ interface IArg {
 const Layout: FC<Props> = ({ children, background }) => {
     const [name, setName] = React.useState("")
     const [myData, setMyData] = React.useState([])
+    const [images, setImages] = useState("")
     const [value, setValue] = useState<any>({})
     const image = 'https://i.ytimg.com/vi/pvlakjE8h6Q/maxresdefault.jpg'
     const router = useRouter()
 
-    const {val} = useContext(songContext)
-    
+    const { val } = useContext(songContext)
+
     useEffect(() => {
         setValue(val)
     }, [val])
@@ -68,6 +69,7 @@ const Layout: FC<Props> = ({ children, background }) => {
             })
                 .then(res => {
                     setName(res.data.display_name)
+                    setImages(res?.data?.images[0]?.url)
                 })
         }
         set()
@@ -86,6 +88,7 @@ const Layout: FC<Props> = ({ children, background }) => {
         }
         getAllAlbums()
     }, [])
+    
     return (
         <Stack sx={{ width: "100%", height: '100vh', flexDirection: 'row' }} >
             <Stack sx={{ width: '17%', height: '100%', padding: '0 30px', display: 'flex', gap: "20px", background: 'black' }}>
@@ -133,17 +136,15 @@ const Layout: FC<Props> = ({ children, background }) => {
                             <input type="text" placeholder='Artists, songs, or podcasts' style={{ width: '300px', padding: "8px 32px", fontSize: "16px", borderRadius: '30px', outline: "none", border: 'none' }} />
                         </Stack>
                     </Stack>
-                    <Link href={'/accaunt/settings'} style={{ textDecoration: 'none' }}>
-                        <Stack sx={{ flexDirection: 'row', width: '150px', padding: '3px', alignItems: 'center', borderRadius: "40px", background: 'black', gap: "10px", cursor: 'pointer' }}>
-                            <Box sx={{ width: '40px', height: '40px', borderRadius: '100%', overflow: 'hidden', background: "gray" }}>
-                                <img style={{ width: '100%', height: '100%' }} src="https://i1.sndcdn.com/artworks-000446065350-6k6hrf-t500x500.jpg" alt="profile" />
-                            </Box>
-                            <Stack>
-                                <Typography sx={{ color: 'white', fontSize: '13px' }}>{name}</Typography>
-                                <Typography sx={{ color: 'gray', mt: '-3px', fontStyle: "italic", fontSize: '13px' }}>PremiumUser</Typography>
-                            </Stack>
+                    <Stack sx={{ flexDirection: 'row', width: '150px', padding: '3px', alignItems: 'center', borderRadius: "40px", background: 'black', gap: "10px", cursor: 'pointer' }}>
+                        <Box sx={{ width: '40px', height: '40px', borderRadius: '100%', overflow: 'hidden', background: "gray" }}>
+                            <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={images || image} alt="profile" />
+                        </Box>
+                        <Stack>
+                            <Typography sx={{ color: 'white', fontSize: '13px' }}>{name}</Typography>
+                            <Typography sx={{ color: 'gray', mt: '-3px', fontStyle: "italic", fontSize: '13px' }}>PremiumUser</Typography>
                         </Stack>
-                    </Link>
+                    </Stack>
                 </Stack>
                 <Stack sx={{ width: '100%', padding: '10px 25px 0 25px', height: '75%', overflowY: 'scroll' }}>
                     {children}

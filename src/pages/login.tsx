@@ -1,9 +1,7 @@
 import SVGIcons from '@/components/SVGIcons'
-import { fetchTracks } from '@/store/features/tracks/trackThunk'
 import { Button, Stack, Link } from '@mui/material'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 const login = () => {
     const CLIENT_ID = "4109f1d797b647deb42f11dd69907b49"

@@ -2,16 +2,15 @@ import Layout from '@/Layouts/Layout'
 import { Button, Stack } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import axios from 'axios'
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import SongItem from '@/components/SongItem';
 
 const playlistId = () => {
   const [myData, setMyData] = useState([])
+  const [artistsName, setArtistsName] = useState('')
   const image = 'https://i.ytimg.com/vi/pvlakjE8h6Q/maxresdefault.jpg'
   const router = useRouter()
   const id = router.asPath.split('/')[2]
@@ -30,22 +29,10 @@ const playlistId = () => {
         },
       }).then(res => {
         setMyData(res.data.items)
-      }).catch((e) => { });
-    }
-    getAllAlbums()
-  }, [id])
-
-  useEffect(() => {
-    setMyData([])
-    async function getAllAlbums() {
-      let token = localStorage.getItem('token')
-      await axios.get(`https://api.spotify.com/v1/tracks/5K6DVd7s3JrLjQOx4ttOMw`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-      }).then(res => {
-        console.log(res.data);
-      }).catch((e) => { });
+        setArtistsName(res.data.items[0].track.album.artists[0].name)
+      }).catch((e) => { 
+        router.push('/404')
+      });
     }
     getAllAlbums()
   }, [id])
@@ -67,14 +54,8 @@ const playlistId = () => {
               <Stack>
                 <Typography sx={{ color: "White", fontWeight: "700", fontSize: '18px' }}>Open playist</Typography>
                 <Typography sx={{ color: "White", fontWeight: "700", fontSize: '62px' }}>{name}</Typography>
-                <Typography sx={{ color: 'white', fontWeight: "500", fontSize: '20px' }} > lorem : ipsum : {myData.length} tracks </Typography>
+                <Typography sx={{ color: 'white', fontWeight: "500", fontSize: '20px' }} >{ artistsName } : {myData.length} tracks </Typography>
               </Stack>
-            </Stack>
-            <Stack sx={{ width: '100%', alignItems: "center", flexDirection: 'row', gap: '15px', paddingTop: '30px' }}>
-              <Button variant='contained' sx={[{ borderRadius: "100%", color: 'white', background: '#1DB954', minWidth: "0", width: '58px', height: '58px', transition: ".3s ease" }, { '&:hover': { background: '#10A043' } }]}>
-                <PlayArrowIcon sx={{ color: 'black', fontSize: "37px" }} />
-              </Button>
-              <FavoriteBorderIcon sx={{ color: '#989898', fontSize: '48px', fontWeight: '200', cursor: 'pointer' }} />
             </Stack>
             <Stack sx={{ width: '100%', paddingTop: "30px" }}>
               <ol>

@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 * {
 	margin: 0;
 	padding: 0;
@@ -12,7 +8,6 @@
 
 ::-webkit-scrollbar {
 	width: 7px;
-	width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -36,9 +31,9 @@ a:hover {
 	top: 13px;
 }
 
-.css-64wgrj-MuiStack-root:hover button {
+.css-1mudpii-MuiStack-root:hover button {
 	opacity: 1;
-	bottom: 115px;
+	bottom: 105px;
 }
 
 .lis,
@@ -84,22 +79,8 @@ ol {
 	top: 5px;
 	height: 20px;
 	width: 20px;
-
-	/* -webkit-animation: loading-blob 1.2s infinite;
-	-moz-animation:    loading-blob 1.2s infinite;
-	-o-animation:      loading-blob 1.2s infinite; */
 	animation: loading-blob 1.2s infinite;
-
-	/* -webkit-animation-timing-function: ease-in-out;
-	-moz-animation-timing-function: ease-in-out;
-	-ms-animation-timing-function: ease-in-out;
-	-o-animation-timing-function: ease-in-out; */
 	animation-timing-function: ease-in-out;
-
-	/* -webkit-transform: translate3d(0, 0, 0);
-	-moz-transform: translate3d(0, 0, 0);
-	-ms-transform: translate3d(0, 0, 0);
-	-o-transform: translate3d(0, 0, 0); */
 	transform: translate3d(0, 0, 0);
 }
 

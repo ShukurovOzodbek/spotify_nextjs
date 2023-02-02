@@ -6,7 +6,11 @@ import Link from 'next/link'
 const error = () => {
   return (
     <Stack sx={{ width: '100%', height: '100vh', background: 'black', color: 'white', display: "flex", justifyContent: 'center', alignItems: 'center', gap: "25px" }}>
-      <SVGIcons icon='logo' width="300px" height='90px' />
+      <Stack sx={{ flexDirection: 'row', alignItems: 'center', gap: '10px' }}>
+        <Typography sx={{ fontSize: '90px' }}>4</Typography>
+        <SVGIcons icon='logo' width="300px" height='90px' />
+        <Typography sx={{ fontSize: '90px' }}>4</Typography>
+      </Stack>
       <Stack sx={{ display: 'flex', flexDirection: 'column', gap: '7px', alignItems: 'center' }}>
         <Typography sx={{ fontSize: '45px', fontWeight: '700' }}>Page Not Found</Typography>
         <Typography sx={{ fontSize: "18px", fontWeight: '500', }}>We cannot find this page</Typography>
