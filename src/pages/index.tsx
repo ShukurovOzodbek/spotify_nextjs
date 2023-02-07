@@ -26,7 +26,6 @@ export default function Home() {
     if (albums.length === 0) {
       dispatch(fetchAlbums(obj))
     }
-
   }, [])
   useEffect(() => {
     let strg: any = localStorage.getItem('token')
@@ -62,7 +61,7 @@ export default function Home() {
     }
     getAllAlbums()
   }, [])
-  
+
   return (
     <Layout>
       <Stack sx={{ width: '100%', height: "100%", padding: "20px 0px", gap: "10px" }}>
@@ -72,31 +71,31 @@ export default function Home() {
         </Stack>
         <Stack sx={{ gap: '15px', mb: "20px" }}>
           <Link href="/albums" sx={[{ fontSize: '24px', color: "white", textDecoration: 'none', fontWeight: '600' }, { '&:hover': { textDecoration: 'underline white' } }]}>Albums that can be liked by you</Link>
-          <Stack sx={{ color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
+          <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
             <MadeFor arr={data} />
           </Stack>
         </Stack>
         <Stack sx={{ gap: '15px', mb: "20px" }}>
           <Link href="/albums" sx={[{ fontSize: '24px', color: "white", textDecoration: 'none', fontWeight: '600' }, { '&:hover': { textDecoration: 'underline white' } }]}>Artists for you</Link>
-          <Stack sx={{ color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
+          <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
             <MadeFor arr={data} />
           </Stack>
         </Stack>
         <Stack sx={{ gap: '15px', mb: "20px" }}>
           <Link href="/albums" sx={[{ fontSize: '24px', color: "white", textDecoration: 'none', fontWeight: '600' }, { '&:hover': { textDecoration: 'underline white' } }]}>Recently Listened</Link>
-          <Stack sx={{ color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
+          <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
             <MadeFor arr={data} />
           </Stack>
         </Stack>
         <Stack sx={{ gap: '15px', mb: "20px" }}>
           <Link href="/albums" sx={[{ fontSize: '24px', color: "white", textDecoration: 'none', fontWeight: '600' }, { '&:hover': { textDecoration: 'underline white' } }]}>Popular Artists</Link>
-          <Stack sx={{ color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
+          <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
             <MadeFor arr={data} />
           </Stack>
         </Stack>
         <Stack sx={{ gap: '15px', mb: "20px" }}>
           <Link href="/albums" sx={[{ fontSize: '24px', color: "white", textDecoration: 'none', fontWeight: '600' }, { '&:hover': { textDecoration: 'underline white' } }]}>Who likes Miyagi</Link>
-          <Stack sx={{ color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
+          <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
             <MadeFor arr={data} />
           </Stack>
         </Stack>

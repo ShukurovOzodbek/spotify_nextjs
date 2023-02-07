@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import SongItem from '@/components/SongItem';
+import { getAverageRGB } from '@/hook/getImageColor'
 
 const playlistId = () => {
   const [myData, setMyData] = useState([])
@@ -14,7 +15,7 @@ const playlistId = () => {
   const image = 'https://i.ytimg.com/vi/pvlakjE8h6Q/maxresdefault.jpg'
   const router = useRouter()
   const id = router.asPath.split('/')[2]
-
+  const img = useRef(null) 
   const data: any = myData[0]
   const images = data?.track.album.images[0].url
   const name = data?.track.album.name
@@ -37,6 +38,10 @@ const playlistId = () => {
     getAllAlbums()
   }, [id])
 
+  useEffect(() => {
+    console.log(img.current);
+  }, [])
+
   return (
     <Layout background={images}>
       {
@@ -50,7 +55,7 @@ const playlistId = () => {
           :
           <Stack sx={{ transition: '.4s ease' }}>
             <Stack sx={{ gap: "20px", background: 'transparent', flexDirection: "row", alignItems: 'flex-end' }}>
-              <img src={images || image} style={{ width: '250px', height: '250px', objectFit: 'cover', boxShadow: '0px 0px 8px 10px rgba(34, 60, 80, 0.07)' }} alt="" />
+              <img ref={img} src={images || image} style={{ width: '250px', height: '250px', objectFit: 'cover', boxShadow: '0px 0px 8px 10px rgba(34, 60, 80, 0.07)' }} alt="" />
               <Stack>
                 <Typography sx={{ color: "White", fontWeight: "700", fontSize: '18px' }}>Open playist</Typography>
                 <Typography sx={{ color: "White", fontWeight: "700", fontSize: '62px' }}>{name}</Typography>

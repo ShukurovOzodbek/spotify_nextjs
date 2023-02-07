@@ -22,9 +22,14 @@
 	background: rgb(103, 103, 103);
 }
 
-a:hover {
-	opacity: 1;
+div a:hover {
+	opacity: .9 !important;
 }
+
+div a {
+	transition: .4s ease;
+}
+
 
 .css-9slduv-MuiStack-root:hover button, .css-164wgzg:hover button  {
 	opacity: 1;

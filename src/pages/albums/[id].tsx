@@ -17,8 +17,6 @@ const currentAlbum = () => {
   const id = router.asPath.split('/')[2]
   const image = 'https://i.ytimg.com/vi/pvlakjE8h6Q/maxresdefault.jpg'
 
-  const data: any = myData[0]
-
 
   useEffect(() => {
     async function getAllAlbums() {
@@ -38,7 +36,6 @@ const currentAlbum = () => {
     }
     getAllAlbums()
   }, [id])
-
   useEffect(() => {
     async function getAllAlbums() {
       let token = localStorage.getItem('token')

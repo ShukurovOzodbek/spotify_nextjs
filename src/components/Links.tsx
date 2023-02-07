@@ -6,16 +6,17 @@ import Link from 'next/link'
 
 interface Props {
     item: any
+    mt?: string
 }
 
-const Links: React.FC<Props> = ({ item }) => {
+const Links: React.FC<Props> = ({ item, mt }) => {
 
     const router = useRouter()
 
     return (
-        <Link style={{ display: 'flex', alignItems: 'center', opacity: router.pathname === item.path ? '1' :'0.4', gap: "10px", color: 'white', textDecoration: 'none', transition: '.3s ease' }} href={item.path}>
+        <Link style={{ display: 'flex', alignItems: 'center', opacity: router.pathname === item.path ? '1' :'0.4', gap: "10px", color: 'white', textDecoration: 'none', transition: '.3s ease', marginTop: mt }} href={item.path}>
             <SVGIcons icon={item.svg} />
-            <Typography sx={{ fontSize: '19px' }}>{item.text}</Typography>
+            <Typography sx={{ fontSize: '17px' }}>{item.text}</Typography>
         </Link>
     )
 }

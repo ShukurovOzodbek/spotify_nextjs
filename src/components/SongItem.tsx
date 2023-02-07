@@ -32,7 +32,7 @@ const SongItem: React.FC<IProps> = ({ images, image, i }) => {
 
     return (
         <li className='lis'>
-            <Stack sx={{ flexDirection: 'row', gap: "14px", alignItems: 'center' }} onDoubleClick={handleClick}>
+            <Stack sx={{ flexDirection: 'row', gap: "14px", alignItems: 'center' }} onClick={handleClick}>
                 <img src={images || image} style={{ width: '38px', height: '38px', objectFit: 'cover', borderRadius: '4px' }} alt="" />
                 <Typography sx={{ fontSize: '16px', fontWeight: '400', textAlign: 'left' }} >{i.track.name}</Typography>
             </Stack>

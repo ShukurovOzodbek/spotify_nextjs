@@ -60,6 +60,14 @@ const Layout: FC<Props> = ({ children, background }) => {
     }, [val])
 
     useEffect(() => {
+        let doc: any = document.querySelector('audio')
+        doc.preload = "none"
+        doc.autostart = "false"
+        doc.autostart = '0'
+        // autostart="0" autostart="false" preload ="none"    
+    }, [])
+
+    useEffect(() => {
         async function set() {
             let token = localStorage.getItem('token')
             await axios.get("https://api.spotify.com/v1/me", {
@@ -88,7 +96,7 @@ const Layout: FC<Props> = ({ children, background }) => {
         }
         getAllAlbums()
     }, [])
-    
+
     return (
         <Stack sx={{ width: "100%", height: '100vh', flexDirection: 'row' }} >
             <Stack sx={{ width: '17%', height: '100%', padding: '0 30px', display: 'flex', gap: "20px", background: 'black' }}>
@@ -100,9 +108,8 @@ const Layout: FC<Props> = ({ children, background }) => {
                         linksArr.map((i: IArg) => <Links item={i} key={i.svg} />)
                     }
                 </Stack>
-                <Stack sx={{ width: '100%', borderBottom: '1px solid gray', marginTop: '10px', marginBottom: '10px' }}></Stack>
-                <Links item={liked} />
-                <Stack sx={{ width: '100%', borderBottom: '1px solid gray', marginTop: '10px', marginBottom: '10px' }}></Stack>
+                <Links item={liked} mt='20px' />
+                <Stack sx={{ width: '100%', borderBottom: '1px solid gray' }}></Stack>
                 <Stack sx={{ gap: "10px" }}>
                     {
                         myData.map((item: any) => <Link style={{ color: "white", textDecoration: 'none', fontWeight: '400', opacity: router.asPath.split('/')[2] === item.id ? '1' : '0.4' }} href={`/playlists/${item.id}`} key={item.id} >{item.name}</Link>)
@@ -121,17 +128,16 @@ const Layout: FC<Props> = ({ children, background }) => {
                     src={value.uri}
                 />
                 <Stack>
-
                 </Stack>
             </Stack>
             <Stack sx={{ width: '83%', height: '100vh', background: 'linear-gradient(180deg, #1E1E1E 40%, #000000 100%)' }}>
                 <Stack sx={{ justifyContent: "space-between", flexDirection: "row", alignItems: 'center', width: '100%', padding: '50px 25px', height: '10%' }}>
                     <Stack sx={{ flexDirection: 'row', gap: '40px', alignItems: 'center' }}>
                         <Stack sx={{ flexDirection: 'row', alignItems: 'center', gap: '10px' }}>
-                            <Button sx={[{ fontSize: '16px', borderRadius: '100%', background: 'gray', width: '0px', height: '0px', padding: '15px', minWidth: '0px' }, { '&:hover': { background: 'black' } }]} variant='contained'>{"<"}</Button>
-                            <Button sx={[{ fontSize: '16px', borderRadius: '100%', background: 'black', width: '0px', height: '0px', padding: '15px', minWidth: '0px' }, { '&:hover': { background: 'gray' } }]} variant='contained'>{">"}</Button>
+                            <Button sx={[{ fontSize: '16px', borderRadius: '100%', background: 'gray', width: '0px', height: '0px', padding: '15px', minWidth: '0px' }, { '&:hover': { background: 'black' } }]} onClick={() => window.history.go(-1)} variant='contained'>{"<"}</Button>
+                            <Button sx={[{ fontSize: '16px', borderRadius: '100%', background: 'black', width: '0px', height: '0px', padding: '15px', minWidth: '0px' }, { '&:hover': { background: 'gray' } }]} onClick={() => window.history.go(+1)} variant='contained'>{">"}</Button>
                         </Stack>
-                        <Stack sx={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
+                        <Stack sx={{ flexDirection: 'row', alignItems: 'center', position: 'relative', display: router.pathname === "/search" ? 'block' : 'none' }}>
                             <SVGIcons icon="search2" />
                             <input type="text" placeholder='Artists, songs, or podcasts' style={{ width: '300px', padding: "8px 32px", fontSize: "16px", borderRadius: '30px', outline: "none", border: 'none' }} />
                         </Stack>
