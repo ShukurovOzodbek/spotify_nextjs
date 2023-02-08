@@ -4,12 +4,24 @@ import SVGIcons from '@/components/SVGIcons'
 import Links from '@/components/Links'
 import Link from 'next/link'
 import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import Tooltip from '@mui/material/Tooltip';
+import PersonAdd from '@mui/icons-material/PersonAdd';
+import Settings from '@mui/icons-material/Settings';
+import Logout from '@mui/icons-material/Logout';
+import { IconButton } from '@mui/material';
+
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import AudioPlayer from 'react-h5-audio-player';
 import { songContext } from '@/contexts/songContext'
+
 
 interface Props {
     children: JSX.Element
@@ -36,7 +48,7 @@ const linksArr = [
 const liked = {
     path: "/liked",
     svg: "liked",
-    text: "Liked"
+    text: "Liked songs"
 }
 
 interface IArg {
@@ -46,13 +58,20 @@ interface IArg {
 }
 
 const Layout: FC<Props> = ({ children, background }) => {
-    const [name, setName] = React.useState("")
+    const [name, setName] = React.useState<any>("")
     const [myData, setMyData] = React.useState([])
     const [images, setImages] = useState("")
     const [value, setValue] = useState<any>({})
     const image = 'https://i.ytimg.com/vi/pvlakjE8h6Q/maxresdefault.jpg'
     const router = useRouter()
-
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     const { val } = useContext(songContext)
 
     useEffect(() => {
@@ -96,6 +115,11 @@ const Layout: FC<Props> = ({ children, background }) => {
         }
         getAllAlbums()
     }, [])
+
+    const logOut = () => {
+        localStorage.clear()
+        router.push('/login')
+    }
 
     return (
         <Stack sx={{ width: "100%", height: '100vh', flexDirection: 'row' }} >
@@ -142,15 +166,78 @@ const Layout: FC<Props> = ({ children, background }) => {
                             <input type="text" placeholder='Artists, songs, or podcasts' style={{ width: '300px', padding: "8px 32px", fontSize: "16px", borderRadius: '30px', outline: "none", border: 'none' }} />
                         </Stack>
                     </Stack>
-                    <Stack sx={{ flexDirection: 'row', width: '150px', padding: '3px', alignItems: 'center', borderRadius: "40px", background: 'black', gap: "10px", cursor: 'pointer' }}>
-                        <Box sx={{ width: '40px', height: '40px', borderRadius: '100%', overflow: 'hidden', background: "gray" }}>
-                            <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={images || image} alt="profile" />
+                    <IconButton sx={{ background: "black", borderRadius: "30px", padding: "6px" }}>
+                        <Box onClick={handleClick}
+                            // size="small"
+                            aria-controls={open ? 'account-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                            sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: "10px" }}>
+                            {
+                                images ? <img
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={images} alt="profile" /> : <Tooltip title="Account settings">
+                                    <Avatar sx={{ width: 32, height: 32 }}>{name.slice(0, 1).toUpperCase()}</Avatar>
+                                </Tooltip>
+                            }
+                            <Stack>
+                                <Typography sx={{ color: 'white', fontSize: '13px', textAlign: "left" }}>{name}</Typography>
+                                <Typography sx={{ color: 'gray', mt: '-3px', fontStyle: "italic", fontSize: '13px' }}>PremiumUser</Typography>
+                            </Stack>
                         </Box>
-                        <Stack>
-                            <Typography sx={{ color: 'white', fontSize: '13px' }}>{name}</Typography>
-                            <Typography sx={{ color: 'gray', mt: '-3px', fontStyle: "italic", fontSize: '13px' }}>PremiumUser</Typography>
-                        </Stack>
-                    </Stack>
+                    </IconButton>
+
+                    <Menu
+                        anchorEl={anchorEl}
+                        id="account-menu"
+                        open={open}
+                        onClose={handleClose}
+                        onClick={handleClose}
+                        PaperProps={{
+                            elevation: 0,
+                            sx: {
+                                overflow: 'visible',
+                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                mt: 1.5,
+                                '& .MuiAvatar-root': {
+                                    width: 32,
+                                    height: 32,
+                                    ml: -0.5,
+                                    mr: 1,
+                                },
+                                '&:before': {
+                                    content: '""',
+                                    display: 'block',
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 14,
+                                    width: 10,
+                                    height: 10,
+                                    bgcolor: 'background.paper',
+                                    transform: 'translateY(-50%) rotate(45deg)',
+                                    zIndex: 0,
+                                },
+                            },
+                        }}
+                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    >
+                        <MenuItem onClick={() => router.push('/profile')}>
+                            <Avatar /> Profile
+                        </MenuItem>
+                        <Divider />
+                        <MenuItem onClick={() => router.push('/profile/settings')}>
+                            <ListItemIcon>
+                                <Settings fontSize="small" />
+                            </ListItemIcon>
+                            Settings
+                        </MenuItem>
+                        <MenuItem onClick={logOut}>
+                            <ListItemIcon>
+                                <Logout fontSize="small" />
+                            </ListItemIcon>
+                            Logout
+                        </MenuItem>
+                    </Menu>
                 </Stack>
                 <Stack sx={{ width: '100%', padding: '10px 25px 0 25px', height: '75%', overflowY: 'scroll' }}>
                     {children}
