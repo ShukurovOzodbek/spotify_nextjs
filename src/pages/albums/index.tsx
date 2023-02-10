@@ -1,30 +1,30 @@
 import React from 'react'
 import Layout from '@/Layouts/Layout'
 import { Stack, Link } from '@mui/material'
-import MadeFor from '@/components/MadeFor'
-import axios from 'axios'
+import BestMixes from '@/components/BestMixes'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAlbums } from '@/store/features/albums/albumThunk'
 
 const albums = () => {
-    const [data, setData] = React.useState([])
+    const distpatch = useDispatch<any>()
+    const data = useSelector((state: any) => state.albums.albums)
+
     React.useEffect(() => {
-        async function getAllAlbums() {
-            let token = localStorage.getItem('token')
-            await axios.get("https://api.spotify.com/v1/browse/new-releases?country=UZ&limit=50&offset=1", {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            }).then(res => {
-                setData(res.data.albums.items)
-            })
+        let token = localStorage.getItem('token')
+        const obj = { token }
+        if(data.length === 0) {
+            distpatch(fetchAlbums(obj))
         }
-        getAllAlbums()
     }, [])
+
     return (
         <Layout>
             <Stack sx={{ gap: '15px', mb: "20px" }}>
                 <Link href="/albums" sx={[{ fontSize: '24px', color: "white", textDecoration: 'none', fontWeight: '600' }, { '&:hover': { textDecoration: 'underline white' } }]}>Albums that can be liked by you</Link>
                 <Stack sx={{ color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
-                    <MadeFor arr={data} />
+                    {
+                        data.map((item: any) => <BestMixes item={item} key={item.name} />)
+                    }
                 </Stack>
             </Stack>
         </Layout>

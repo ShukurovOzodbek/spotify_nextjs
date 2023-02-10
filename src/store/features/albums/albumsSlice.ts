@@ -1,18 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetchAlbums } from './albumThunk'
+import { fetchAlbums, fetchPlaylists } from './albumThunk'
 
 interface IState {
     albums: Array<{}>,
-    status: string
+    status: string,
+    playlists: []
 }
 
 const initialState: IState = {
     albums: [],
+    playlists: [],
     status: ''
 }
 
-export const tracksSlice = createSlice({
-    name: 'tracks',
+export const albumsSlice = createSlice({
+    name: 'albums',
     initialState,
     reducers: {},
     extraReducers(builder) {
@@ -27,8 +29,19 @@ export const tracksSlice = createSlice({
             .addCase(fetchAlbums.rejected, (state) => {
                 state.status = 'rejected'
             })
+        builder
+            .addCase(fetchPlaylists.pending, (state) => {
+                state.status = 'pending'
+            })
+            .addCase(fetchPlaylists.fulfilled, (state, action) => {
+                state.status = 'fulfilled'
+                state.playlists = action.payload
+            })
+            .addCase(fetchPlaylists.rejected, (state) => {
+                state.status = 'rejected'
+            })
     }
 })
 
-export const { } = tracksSlice.actions
-export default tracksSlice.reducer
+export const { } = albumsSlice.actions
+export default albumsSlice.reducer

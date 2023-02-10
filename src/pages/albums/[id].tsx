@@ -32,6 +32,17 @@ const currentAlbum = () => {
         if (e.message === 'Request failed with status code 400') {
           router.push('/404')
         }
+        async function getting() {
+          await axios.get(`https://api.spotify.com/v1/playlists/${id}/tracks?offset=0&limit=100&locale=ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+          }).then(res => {
+            setMyData(res.data.items)
+            setArtistsName(res?.data?.items[0]?.track?.artists[0]?.name)
+          })
+        }
+        getting()
       });
     }
     getAllAlbums()
@@ -49,6 +60,16 @@ const currentAlbum = () => {
         if (e.message === 'Request failed with status code 400') {
           router.push('/404')
         }
+        async function getting() {
+          await axios.get(`https://api.spotify.com/v1/playlists/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+          }).then(res => {
+            setImages(res.data.images[0].url)
+          })
+        }
+        getting()
       });
     }
     getAllAlbums()

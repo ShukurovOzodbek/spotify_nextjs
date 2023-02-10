@@ -2,13 +2,13 @@ import { fetchCategories } from './categoryThunk';
 import { createSlice } from '@reduxjs/toolkit'
 
 interface IState {
-    categories: Array<{}>,
+    categories: Array<{}>
     status: string
 }
 
 const initialState: IState = {
     categories: [],
-    status: ''
+    status: 'idle'
 }
 
 export const categoriesSlice = createSlice({

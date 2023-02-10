@@ -73,7 +73,6 @@ const Layout: FC<Props> = ({ children, background }) => {
         setAnchorEl(null);
     };
     const { val } = useContext(songContext)
-
     useEffect(() => {
         setValue(val)
     }, [val])
@@ -83,7 +82,6 @@ const Layout: FC<Props> = ({ children, background }) => {
         doc.preload = "none"
         doc.autostart = "false"
         doc.autostart = '0'
-        // autostart="0" autostart="false" preload ="none"    
     }, [])
 
     useEffect(() => {
@@ -144,7 +142,7 @@ const Layout: FC<Props> = ({ children, background }) => {
                 <Stack sx={{ flexDirection: 'row', width: '200px', alignItems: 'center', gap: "10px" }}>
                     <img src={value.image || image} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '5px' }} alt="" />
                     <Stack>
-                        <Typography sx={{ lineHeight: '18px', }} > {value.songName} </Typography>
+                        <Typography sx={{ lineHeight: '18px', }} > {value?.songName ? value?.songName.split(' ').length <= 2 ? value?.songName.split(' ').slice(0, 3).join(' ') : value?.songName.split(' ').slice(0, 3).join(' ') + ' ...' : value?.songName} </Typography>
                         <Typography sx={{ lineHeight: '18px', fontSize: '14px', color: '#999999' }}>{value.artist}</Typography>
                     </Stack>
                 </Stack>
