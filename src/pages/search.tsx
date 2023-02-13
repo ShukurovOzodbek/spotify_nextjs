@@ -1,14 +1,15 @@
 import Layout from '@/Layouts/Layout'
 import React from 'react'
+import { Stack } from '@mui/material'
 
 const search = () => {
-  React.useEffect(() => {
-    let inp:any = document.querySelector('input')
-    inp.focus()
-  })
+
+
   return (
     <Layout>
-        <h1>Search</h1>
+      <Stack sx={{ width: "100%" }}>  
+        
+      </Stack>
     </Layout>
   )
 }
