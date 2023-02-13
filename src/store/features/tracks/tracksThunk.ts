@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const fetchTracks = createAsyncThunk('tracks/fetchTracks', async (obj: any) => {
     const { token, searchKey } = obj
-    const { data } = await axios.get("https://api.spotify.com/v1/", {
+    const { data } = await axios.get("https://api.spotify.com/v1/search", {
         headers: {
             Authorization: `Bearer ${token}`
         },

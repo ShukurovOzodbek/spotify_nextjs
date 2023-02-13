@@ -128,6 +128,7 @@ const Layout: FC<Props> = ({ children, background }) => {
         let inp:any = document.querySelector('.input')
         let token = localStorage.getItem('token')
         inp.onkeyup = () => {
+            localStorage.setItem('searchKey', JSON.stringify(searchKey))
             setSearchKey(inp.value)
             dispatch(fetchTracks({ token, searchKey }))
         }
@@ -180,7 +181,6 @@ const Layout: FC<Props> = ({ children, background }) => {
                     </Stack>
                     <IconButton sx={{ background: "black", borderRadius: "30px", padding: "6px" }}>
                         <Box onClick={handleClick}
-                            // size="small"
                             aria-controls={open ? 'account-menu' : undefined}
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}

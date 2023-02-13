@@ -77,7 +77,7 @@ const playlistId = () => {
                 </li>
                 {
                   myData.length === 0 ? <Typography sx={{ color: '#989898', display: 'flex', gap: "10px", alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: "600", textAlign: 'center' }}> <ErrorOutlineIcon sx={{ fontSize: '32px' }} /> There we have not tracks</Typography> : myData.map((i: any) => (
-                    <SongItem image={image} images={images} i={i}  key={i.track.id} />
+                    <SongItem image={image} images={i?.track?.album?.images[0]?.url} i={i}  key={i.track.id} />
                   ))
                 }
               </ol>

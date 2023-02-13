@@ -16,6 +16,12 @@ const AlbumSongItem: React.FC<IProps> = ({ images, image, i }) => {
     const [artist, setArtist] = useState()
     const [songName, setSongName] = useState()
 
+
+    const handleClick = () => {
+        console.log(i);
+        changeSong({ image: images, uri, artist, songName })
+    }
+
     useEffect(() => {
         if (i?.track?.preview_url) {
             setUri(i?.track.preview_url)
@@ -26,12 +32,7 @@ const AlbumSongItem: React.FC<IProps> = ({ images, image, i }) => {
             setArtist(i?.artists[0]?.name)
             setSongName(i.name)
         }
-    }, [])
-
-    const handleClick = () => {
-        console.log(i);
-        changeSong({ image: images, uri, artist, songName })
-    }
+    }, [i])
 
     return (
         <li className='lis'>
