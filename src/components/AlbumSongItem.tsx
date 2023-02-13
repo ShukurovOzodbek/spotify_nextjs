@@ -1,5 +1,5 @@
 import Stack from '@mui/material/Stack'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Typography from '@mui/material/Typography'
 import { songContext } from '@/contexts/songContext';
 
@@ -11,12 +11,23 @@ interface IProps {
 
 const AlbumSongItem: React.FC<IProps> = ({ images, image, i }) => {
     const { changeSong } = useContext(songContext)
-    const [ duration_ms, setDuration_ms ] = useState(i.duration_ms || i.track.duration_ms)
-    const [uri, setUri] = useState(i?.preview_url || i?.track.preview_url)
-    const [artist, setArtist] = useState(i?.artists[0]?.name || i?.track.artists[0]?.name)
-    const [songName, setSongName] = useState(i.track.name || i?.name)
+    const [duration_ms, setDuration_ms] = useState(i.duration_ms || i.track.duration_ms)
+    const [uri, setUri] = useState()
+    const [artist, setArtist] = useState()
+    const [songName, setSongName] = useState()
 
-    
+    useEffect(() => {
+        if (i?.track?.preview_url) {
+            setUri(i?.track.preview_url)
+            setArtist(i?.track.artists[0]?.name)
+            setSongName(i.track.name)
+        } else if (i.preview_url) {
+            setUri(i?.preview_url)
+            setArtist(i?.artists[0]?.name)
+            setSongName(i.name)
+        }
+    }, [])
+
     const handleClick = () => {
         console.log(i);
         changeSong({ image: images, uri, artist, songName })

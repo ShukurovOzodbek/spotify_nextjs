@@ -11,7 +11,7 @@ import AlbumSongItem from '@/components/AlbumSongItem'
 const currentAlbum = () => {
   const [myData, setMyData] = useState([])
   const [artistsName, setArtistsName] = useState('')
-  const [name, setName] = useState('')
+  const [name, setName] = useState<any>('')
   const [images, setImages] = useState("")
   const router = useRouter()
   const id = router.asPath.split('/')[2]
@@ -33,7 +33,7 @@ const currentAlbum = () => {
           router.push('/404')
         }
         async function getting() {
-          await axios.get(`https://api.spotify.com/v1/playlists/${id}/tracks?offset=0&limit=100&locale=ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7`, {
+          await axios.get(`https://api.spotify.com/v1/playlists/${id}/tracks?offset=1&limit=100&locale=ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7`, {
             headers: {
               Authorization: `Bearer ${token}`
             },
@@ -74,6 +74,11 @@ const currentAlbum = () => {
     }
     getAllAlbums()
   }, [id])
+
+  useEffect(() => {
+    setName(localStorage.getItem('albumSongName'))
+  }, [])
+
   return (
     <Layout>
       {

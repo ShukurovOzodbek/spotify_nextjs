@@ -134,7 +134,7 @@ const Layout: FC<Props> = ({ children, background }) => {
                 <Stack sx={{ width: '100%', borderBottom: '1px solid gray' }}></Stack>
                 <Stack sx={{ gap: "10px" }}>
                     {
-                        myData.map((item: any) => <Link style={{ color: "white", textDecoration: 'none', fontWeight: '400', opacity: router.asPath.split('/')[2] === item.id ? '1' : '0.4' }} href={`/playlists/${item.id}`} key={item.id} >{item.name}</Link>)
+                        myData.map((item: any) => <Link style={{ color: "white", textDecoration: 'none', fontWeight: '400', opacity: router.asPath.split('/')[2] === item.id ? '1' : '0.4' }} href={`/playlists/${item.id}`} key={item.id} >{item.name.split(' ').length > 3  ? item.name.split(' ').slice(0, 3).join(' ') : item.name }</Link>)
                     }
                 </Stack>
             </Stack>
