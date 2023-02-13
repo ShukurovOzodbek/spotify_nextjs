@@ -21,6 +21,8 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import AudioPlayer from 'react-h5-audio-player';
 import { songContext } from '@/contexts/songContext'
+import { useDispatch } from 'react-redux'
+import { fetchTracks } from '@/store/features/tracks/tracksThunk'
 
 
 interface Props {
@@ -62,10 +64,13 @@ const Layout: FC<Props> = ({ children, background }) => {
     const [myData, setMyData] = React.useState([])
     const [images, setImages] = useState("")
     const [value, setValue] = useState<any>({})
+    const [searchKey, setSearchKey] = useState('')
     const image = 'https://i.ytimg.com/vi/pvlakjE8h6Q/maxresdefault.jpg'
     const router = useRouter()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const dispatch = useDispatch<any>()
+    
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -119,6 +124,15 @@ const Layout: FC<Props> = ({ children, background }) => {
         router.push('/login')
     }
 
+    useEffect(() => {
+        let inp:any = document.querySelector('.input')
+        let token = localStorage.getItem('token')
+        inp.onkeyup = () => {
+            setSearchKey(inp.value)
+            dispatch(fetchTracks({ token, searchKey }))
+        }
+    }, [searchKey])
+
     return (
         <Stack sx={{ width: "100%", height: '100vh', flexDirection: 'row' }} >
             <Stack sx={{ width: '17%', height: '100%', padding: '0 30px', display: 'flex', gap: "20px", background: 'black' }}>
@@ -161,7 +175,7 @@ const Layout: FC<Props> = ({ children, background }) => {
                         </Stack>
                         <Stack sx={{ flexDirection: 'row', alignItems: 'center', position: 'relative', display: router.pathname === "/search" ? 'block' : 'none' }}>
                             <SVGIcons icon="search2" />
-                            <input type="text" placeholder='Artists, songs, or podcasts' style={{ width: '300px', padding: "8px 32px", fontSize: "16px", borderRadius: '30px', outline: "none", border: 'none' }} />
+                            <input className="input" type="text" placeholder='Artists, songs, or podcasts' style={{ width: '300px', padding: "8px 32px", fontSize: "16px", borderRadius: '30px', outline: "none", border: 'none' }} />
                         </Stack>
                     </Stack>
                     <IconButton sx={{ background: "black", borderRadius: "30px", padding: "6px" }}>
