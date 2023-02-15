@@ -25,8 +25,7 @@ export default function Home() {
   useEffect(() => {
     let token = localStorage.getItem('token')
     const obj = { token }
-    let strg: any = localStorage.getItem('token')
-    if (!strg) {
+    if (!token) {
       router.push('/login')
     }
     if (albums.length === 0) {
@@ -71,22 +70,6 @@ export default function Home() {
             <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
               {
                 categories.slice(0, 5).map((item: any) => <Categories item={item} key={item.name} />)
-              }
-            </Stack>
-          </Stack>
-          <Stack sx={{ gap: '15px', mb: "20px" }}>
-            <Link href="/albums" sx={[{ fontSize: '24px', color: "white", textDecoration: 'none', fontWeight: '600' }, { '&:hover': { textDecoration: 'underline white' } }]}>Recently Listened</Link>
-            <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
-              {
-                albums.slice(0, 5).map((item: any) => <BestMixes item={item} key={item.name} />)
-              }
-            </Stack>
-          </Stack>
-          <Stack sx={{ gap: '15px', mb: "20px" }}>
-            <Link href="/albums" sx={[{ fontSize: '24px', color: "white", textDecoration: 'none', fontWeight: '600' }, { '&:hover': { textDecoration: 'underline white' } }]}>Popular Artists</Link>
-            <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
-              {
-                albums.slice(0, 5).map((item: any) => <BestMixes item={item} key={item.name} />)
               }
             </Stack>
           </Stack>

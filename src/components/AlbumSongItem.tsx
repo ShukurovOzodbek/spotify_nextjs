@@ -7,9 +7,10 @@ interface IProps {
     images: string,
     image: string,
     i: any
+    width?: string
 }
 
-const AlbumSongItem: React.FC<IProps> = ({ images, image, i }) => {
+const AlbumSongItem: React.FC<IProps> = ({ images, image, i, width }) => {
     const { changeSong } = useContext(songContext)
     const [duration_ms, setDuration_ms] = useState(i.duration_ms || i.track.duration_ms)
     const [uri, setUri] = useState()
@@ -40,7 +41,7 @@ const AlbumSongItem: React.FC<IProps> = ({ images, image, i }) => {
                 <img src={images || image} style={{ width: '38px', height: '38px', objectFit: 'cover', borderRadius: '4px' }} alt="" />
                 <Typography sx={{ fontSize: '16px', fontWeight: '400', textAlign: 'left' }} >{i.name || i.track.name}</Typography>
             </Stack>
-            <Typography sx={{ fontSize: '16px', fontWeight: '400', width: '120px' }} >{
+            <Typography sx={{ fontSize: '16px', fontWeight: '400', width: width ? width : '120px' }} >{
                 Math.floor((duration_ms / 1000 / 60) << 0)} : {Math.floor((duration_ms / 1000) % 60) < 10 ? `0${Math.floor((duration_ms / 1000) % 60)}` : Math.floor((duration_ms / 1000) % 60)
                 }</Typography>
         </li>

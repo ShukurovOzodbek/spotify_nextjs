@@ -101,14 +101,14 @@ const currentAlbum = () => {
             </Stack>
             <Stack sx={{ width: '100%', paddingTop: "30px" }}>
               <ol>
-                <li>
+                <Stack sx={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Stack sx={{ flexDirection: 'row', gap: "14px" }}>
                     <Typography sx={{ color: '#989898', fontSize: '18px', fontWeight: "600", }}>Name</Typography>
                   </Stack>
-                  <Typography sx={{ width: '90px' }}>
+                  <Typography sx={{ width: '100px' }}>
                     <AccessTimeIcon sx={{ color: '#989898', fontWeight: '600' }} />
                   </Typography>
-                </li>
+                </Stack>
                 {
                   myData.length === 0 ? <Typography sx={{ color: '#989898', display: 'flex', gap: "10px", alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: "600", textAlign: 'center' }}> <ErrorOutlineIcon sx={{ fontSize: '32px' }} /> There we have not tracks</Typography> : myData.map((i: any) => (
                     <AlbumSongItem image={image} images={images} i={i} key={i.id} />

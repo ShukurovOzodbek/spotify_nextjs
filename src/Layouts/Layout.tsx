@@ -125,6 +125,13 @@ const Layout: FC<Props> = ({ children, background }) => {
     }
 
     useEffect(() => {
+        if(router.asPath === '/search') {
+            let a:any = document.querySelector('.input')
+            a.focus()
+        }
+    }, [])
+
+    useEffect(() => {
         let inp:any = document.querySelector('.input')
         let token = localStorage.getItem('token')
         inp.onkeyup = () => {
