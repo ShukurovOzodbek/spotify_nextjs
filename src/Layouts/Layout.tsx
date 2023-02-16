@@ -23,6 +23,7 @@ import AudioPlayer from 'react-h5-audio-player';
 import { songContext } from '@/contexts/songContext'
 import { useDispatch } from 'react-redux'
 import { fetchTracks } from '@/store/features/tracks/tracksThunk'
+import { fetchAritsts, searchAlbums } from '@/store/features/albums/albumThunk'
 
 
 interface Props {
@@ -138,6 +139,8 @@ const Layout: FC<Props> = ({ children, background }) => {
             localStorage.setItem('searchKey', JSON.stringify(searchKey))
             setSearchKey(inp.value)
             dispatch(fetchTracks({ token, searchKey }))
+            dispatch(searchAlbums({ token, searchKey }))
+            dispatch(fetchAritsts({ token, searchKey }))
         }
     }, [searchKey])
 

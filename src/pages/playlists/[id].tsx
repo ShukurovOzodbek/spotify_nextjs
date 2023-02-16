@@ -38,10 +38,6 @@ const playlistId = () => {
     getAllAlbums()
   }, [id])
 
-  useEffect(() => {
-    console.log(img.current);
-  }, [])
-
   return (
     <Layout background={images}>
       {

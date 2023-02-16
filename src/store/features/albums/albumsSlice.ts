@@ -1,16 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetchAlbums, fetchPlaylists } from './albumThunk'
+import { fetchAlbums, fetchPlaylists, searchAlbums, fetchAritsts } from './albumThunk'
 
 interface IState {
-    albums: Array<{}>,
+    albums: Array<{}>
+    foundAlbums: any,
     status: string,
-    playlists: []
+    playlists: any
+    foundAritsts: Array<{}>
 }
 
 const initialState: IState = {
     albums: [],
+    foundAlbums: [],
     playlists: [],
-    status: ''
+    foundAritsts: [],
+    status: 'idle'
 }
 
 export const albumsSlice = createSlice({
@@ -38,6 +42,28 @@ export const albumsSlice = createSlice({
                 state.playlists = action.payload
             })
             .addCase(fetchPlaylists.rejected, (state) => {
+                state.status = 'rejected'
+            })
+        builder
+            .addCase(searchAlbums.pending, (state) => {
+                state.status = 'pending'
+            })
+            .addCase(searchAlbums.fulfilled, (state, action) => {
+                state.status = 'fulfilled'
+                state.foundAlbums = action.payload
+            })
+            .addCase(searchAlbums.rejected, (state) => {
+                state.status = 'rejected'
+            })
+        builder
+            .addCase(fetchAritsts.pending, (state) => {
+                state.status = 'pending'
+            })
+            .addCase(fetchAritsts.fulfilled, (state, action) => {
+                state.status = 'fulfilled'
+                state.foundAritsts = action.payload
+            })
+            .addCase(fetchAritsts.rejected, (state) => {
                 state.status = 'rejected'
             })
     }
