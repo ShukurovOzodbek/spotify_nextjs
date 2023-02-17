@@ -7,7 +7,7 @@ export const store = configureStore({
     reducer: {
         tracks: tracksSlice,
         albums: albumsSlice,
-        categories: categoriesSlice 
+        categories: categoriesSlice
     }
 })
 

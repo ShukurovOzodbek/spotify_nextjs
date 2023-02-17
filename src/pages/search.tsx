@@ -40,7 +40,7 @@ const search = () => {
     return (
       <Stack sx={{ gap: "10px и " }}>
         <Link style={{ textDecoration: 'none' }} href="/categories">
-          <Typography sx={{ color: "white", fontSize: "24px" }}>Genres made for you</Typography>
+          <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px" }}>Genres made for you</Typography>
         </Link>
         <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
           {
@@ -60,11 +60,11 @@ const search = () => {
             <>
               <Stack sx={{ width: '100%', flexDirection: 'row', gap: "20px" }}>
                 <Stack sx={{ width: '17%', gap: '10px' }}>
-                  <Typography sx={{ fontSize: '24px', color: 'white' }}>The best result</Typography>
+                  <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px" }}>The best result</Typography>
                   <TheBestResult i={data[0]} />
                 </Stack>
                 <Stack sx={{ width: '80%', gap: '10px' }}>
-                  <Typography sx={{ fontSize: '24px', color: 'white' }}>Tracks</Typography>
+                  <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px" }}>Tracks</Typography>
                   <Stack sx={{ width: '100%', gap: "19px" }}>
                     {
                       data.slice(0, 4).map((i: any, index: number) => <AlbumSongItem image={image} images={i?.album?.images[0]?.url} i={i} width={'55px'} key={index} />)
@@ -73,7 +73,7 @@ const search = () => {
                 </Stack>
               </Stack>
               <Stack sx={{ gap: '10px' }}>
-                <Typography sx={{ fontSize: '24px', color: 'white' }}>Albums</Typography>
+                <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px" }}>Albums</Typography>
                 <Stack sx={{ color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
                   {
                     foundAlbums.map((i: any, index: number) => <BestMixes item={i} key={index} />)
@@ -81,7 +81,7 @@ const search = () => {
                 </Stack>
               </Stack>
               <Stack sx={{ gap: '10px' }}>
-                <Typography sx={{ fontSize: '24px', color: 'white' }}>Artists</Typography>
+                <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px" }}>Artists</Typography>
                 <Stack sx={{ color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
                   {
                     foundAritsts.map((i: any, index: number) => <Aritsts item={i} key={index} />)

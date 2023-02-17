@@ -19,7 +19,6 @@ const AlbumSongItem: React.FC<IProps> = ({ images, image, i, width }) => {
 
 
     const handleClick = () => {
-        console.log(i);
         changeSong({ image: images, uri, artist, songName })
     }
 
@@ -39,9 +38,9 @@ const AlbumSongItem: React.FC<IProps> = ({ images, image, i, width }) => {
         <li className='lis'>
             <Stack sx={{ flexDirection: 'row', gap: "14px", alignItems: 'center' }} onDoubleClick={handleClick}>
                 <img src={images || image} style={{ width: '38px', height: '38px', objectFit: 'cover', borderRadius: '4px' }} alt="" />
-                <Typography sx={{ fontSize: '16px', fontWeight: '400', textAlign: 'left' }} >{i.name || i.track.name}</Typography>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600', textAlign: 'left', color: 'white' }} >{i.name || i.track.name}</Typography>
             </Stack>
-            <Typography sx={{ fontSize: '16px', fontWeight: '400', width: width ? width : '120px' }} >{
+            <Typography sx={{ fontSize: '14px', fontWeight: '400', width: width ? width : '120px' }} >{
                 Math.floor((duration_ms / 1000 / 60) << 0)} : {Math.floor((duration_ms / 1000) % 60) < 10 ? `0${Math.floor((duration_ms / 1000) % 60)}` : Math.floor((duration_ms / 1000) % 60)
                 }</Typography>
         </li>
