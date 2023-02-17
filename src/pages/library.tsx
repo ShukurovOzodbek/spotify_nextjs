@@ -23,7 +23,7 @@ const library = () => {
   return (
     <Layout>
       <Stack sx={{ gap: '10px' }}>
-        <Typography sx={{ fontSize: '24px', color: 'white' }}>Your library</Typography>
+        <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px" }}>Your library</Typography>
         <Stack sx={{ color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
           {
             myData.map((i: any, index: number) => <Playlists item={i} key={index} />)

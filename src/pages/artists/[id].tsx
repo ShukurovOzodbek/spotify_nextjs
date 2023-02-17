@@ -23,61 +23,61 @@ const current = () => {
 
   useEffect(() => {
     let token = localStorage.getItem('token')
-      async function getCurrentArtist() {
-        await axios.get(`https://api.spotify.com/v1/artists/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }).then(res => {
-          setArtistImage(res.data?.images[0]?.url)
-          setArtistName(res.data?.name)
-          setArtistFollow(res.data?.followers?.total)
-        }).catch(err => console.log(err))
-      }
-      getCurrentArtist()
+    async function getCurrentArtist() {
+      await axios.get(`https://api.spotify.com/v1/artists/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(res => {
+        setArtistImage(res.data?.images[0]?.url)
+        setArtistName(res.data?.name)
+        setArtistFollow(res.data?.followers?.total)
+      }).catch(err => console.log(err))
+    }
+    getCurrentArtist()
   }, [id])
 
 
   useEffect(() => {
     let token = localStorage.getItem('token')
-      async function getArtistTracks() {
-        await axios.get(`https://api.spotify.com/v1/artists/${id}/top-tracks?country=UZ&offset=1&limit=50`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }).then(res => {
-          setTopTracks(res.data.tracks)
-        }).catch(err => console.log(err))
-      }
-      getArtistTracks()
+    async function getArtistTracks() {
+      await axios.get(`https://api.spotify.com/v1/artists/${id}/top-tracks?country=UZ&offset=1&limit=50`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(res => {
+        setTopTracks(res.data.tracks)
+      }).catch(err => console.log(err))
+    }
+    getArtistTracks()
   }, [id])
 
   useEffect(() => {
     let token = localStorage.getItem('token')
-      async function getArtistAlbums() {
-        await axios.get(`https://api.spotify.com/v1/artists/${id}/albums`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }).then(res => {
-          setArtsitsAlbums(res.data.items)
-        }).catch(err => console.log(err))
-      }
-      getArtistAlbums()
+    async function getArtistAlbums() {
+      await axios.get(`https://api.spotify.com/v1/artists/${id}/albums`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(res => {
+        setArtsitsAlbums(res.data.items)
+      }).catch(err => console.log(err))
+    }
+    getArtistAlbums()
   }, [id])
 
   useEffect(() => {
     let token = localStorage.getItem('token')
-      async function getArtistAlbums() {
-        await axios.get(`	https://api.spotify.com/v1/artists/${id}/related-artists`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }).then(res => {
-          setRelated(res.data.artists)
-        }).catch(err => console.log(err))
-      }
-      getArtistAlbums()
+    async function getRelatedArtists() {
+      await axios.get(`	https://api.spotify.com/v1/artists/${id}/related-artists`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(res => {
+        setRelated(res.data.artists)
+      }).catch(err => console.log(err))
+    }
+    getRelatedArtists()
   }, [id])
 
   return (
@@ -111,7 +111,7 @@ const current = () => {
           </Stack>
         </Stack>
         <Stack sx={{ gap: '10px' }}>
-          <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px" }}>Realted artists</Typography>
+          <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px" }}>Related artists</Typography>
           <Stack sx={{ display: 'flex', textDecoration: "none", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
             {
               related.map((i: any, index: number) => <Aritsts item={i} key={index} />)
