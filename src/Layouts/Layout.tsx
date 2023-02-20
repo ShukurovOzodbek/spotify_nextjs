@@ -12,11 +12,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { IconButton } from '@mui/material';
-
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import AudioPlayer from 'react-h5-audio-player';
@@ -112,7 +110,7 @@ const Layout: FC<Props> = ({ children, background }) => {
     useEffect(() => {
         async function getAllAlbums() {
             let token = localStorage.getItem('token')
-            await axios.get("https://api.spotify.com/v1/me/playlists", {
+            await axios.get("https://api.spotify.com/v1/users/31odxqa66wuuaaq7wzuzfoxkzqkq/playlists?limit=50", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -147,6 +145,22 @@ const Layout: FC<Props> = ({ children, background }) => {
         }
     }, [searchKey])
 
+    async function getAllAlbums() {
+        let token = localStorage.getItem('token')
+        await axios.post("https://api.spotify.com/v1/users/31odxqa66wuuaaq7wzuzfoxkzqkq/playlists", {
+            "name": "New Playlist",
+            "public": false,
+            "description": "New playlist description",
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            console.log(res);
+        })
+    }
+
     return (
         <Stack sx={{ width: "100%", height: '100vh', flexDirection: 'row' }} >
             <Stack sx={{ width: '17%', height: '100%', padding: '0 30px', display: 'flex', gap: "20px", background: 'black' }}>
@@ -158,7 +172,7 @@ const Layout: FC<Props> = ({ children, background }) => {
                         linksArr.map((i: IArg) => <Links item={i} key={i.svg} />)
                     }
                 </Stack>
-                <Links item={liked} mt='20px' />
+                {/* <Links item={liked} mt='20px' /> */}
                 <Stack sx={{ width: '100%', borderBottom: '1px solid gray' }}></Stack>
                 <Stack sx={{ gap: "10px" }}>
                     {
@@ -178,6 +192,7 @@ const Layout: FC<Props> = ({ children, background }) => {
                     src={value.uri}
                 />
                 <Stack>
+                    <button onClick={getAllAlbums}>getAllAlbums</button>
                 </Stack>
             </Stack>
             <Stack sx={{ width: '83%', height: '100vh', background: 'linear-gradient(180deg, #1E1E1E 40%, #000000 100%)' }}>
@@ -250,12 +265,6 @@ const Layout: FC<Props> = ({ children, background }) => {
                             <Avatar /> Profile
                         </MenuItem>
                         <Divider />
-                        <MenuItem onClick={() => router.push('/profile/settings')}>
-                            <ListItemIcon>
-                                <Settings fontSize="small" />
-                            </ListItemIcon>
-                            Settings
-                        </MenuItem>
                         <MenuItem onClick={logOut}>
                             <ListItemIcon>
                                 <Logout fontSize="small" />
@@ -264,7 +273,7 @@ const Layout: FC<Props> = ({ children, background }) => {
                         </MenuItem>
                     </Menu>
                 </Stack>
-                <Stack sx={{ width: '100%', padding: '10px 25px 0 25px', height: '75%', overflowY: 'scroll' }}>
+                <Stack sx={{ width: '100%', paddingLeft: "20px", paddingBottom: '110px', overflowX: 'hidden' }}>
                     {children}
                 </Stack>
             </Stack>

@@ -7,10 +7,9 @@ import AlbumSongItem from '@/components/AlbumSongItem'
 import TheBestResult from '@/components/TheBestResult'
 import Categories from '@/components/Categories'
 import { fetchCategories } from '@/store/features/categories/categoryThunk'
-import Link from 'next/link'
-import albums from './albums'
 import BestMixes from '@/components/BestMixes'
 import Aritsts from '@/components/Aritsts'
+import Link from 'next/link'
 
 const search = () => {
   const [inp, setInp] = useState<any>("")
@@ -26,6 +25,12 @@ const search = () => {
 
   useEffect(() => {
     let input: any = document.querySelector('.input')
+    input.value = ''
+  }, [])
+
+  useEffect(() => {
+    let input: any = document.querySelector('.input')
+
     setInp(input.value)
 
     let token = localStorage.getItem('token')
@@ -34,7 +39,6 @@ const search = () => {
       dispatch(fetchCategories(obj))
     }
   }, [data])
-
 
   const returnAll = () => {
     return (

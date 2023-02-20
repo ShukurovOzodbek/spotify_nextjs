@@ -7,7 +7,16 @@ const login = () => {
     const CLIENT_ID = "4109f1d797b647deb42f11dd69907b49"
     const REDIRECT_URI = "http://localhost:3000/login"
     // const REDIRECT_URI = "https://cln-spotify.netlify.app/login"
-    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+    var state = 16
+
+    var url = 'https://accounts.spotify.com/authorize';
+    url += '?response_type=token';
+    url += '&client_id=' + CLIENT_ID
+    url += '&scope=' + 'playlist-modify-public playlist-modify-private'
+    url += '&redirect_uri=' + REDIRECT_URI
+    url += '&state=' + state
+
+    const AUTH_ENDPOINT = url
     const RESPONSE_TYPE = "token"
     
     const [token, setToken] = useState("")    
@@ -51,7 +60,7 @@ const login = () => {
     return (
         <Stack sx={{ width: '100%', background: 'black', height: '100vh', display: 'flex', flexDirection: 'column', gap: '30px', justifyContent: 'center', alignItems: 'center' }}>
             <SVGIcons icon='logo' />
-            <Link sx={{ textDecoration: 'none'}} href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
+            <Link sx={{ textDecoration: 'none'}} href={url}>
                 <Button variant='contained' sx={[{ width: '200px', padding: '13px', color: 'white', background: '#1DB954' }, {'&:hover': {background: '#10A043'}}]}>
                     Login To Spotify
                 </Button>

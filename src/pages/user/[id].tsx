@@ -1,10 +1,9 @@
 import Layout from '@/Layouts/Layout'
 import { Stack, Typography, Link } from '@mui/material'
 import axios from 'axios'
-import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import Aritsts from '@/components/Aritsts'
 import Playlists from '@/components/Playlist'
+import { useRouter } from 'next/router'
 
 const current = () => {
   const [userImage, setUserImage] = useState<any>('')
@@ -63,14 +62,6 @@ const current = () => {
           <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
             {
               userPlaylists.map((item: any) => <Playlists item={item} key={item.name} />)
-            }
-          </Stack>
-        </Stack>
-        <Stack sx={{ gap: '10px' }}>
-          <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px" }}>Liked songs</Typography>
-          <Stack sx={{ display: 'flex', textDecoration: "none", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
-            {
-              likedSongs.map((i: any, index: number) => <Aritsts item={i} key={index} />)
             }
           </Stack>
         </Stack>

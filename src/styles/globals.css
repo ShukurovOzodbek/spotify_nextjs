@@ -6,20 +6,8 @@
 	user-select: none;
 }
 
-::-webkit-scrollbar {
-	width: 7px;
-}
-
-::-webkit-scrollbar-track {
-	border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-	background: gray;
-}
-
-::-webkit-scrollbar-thumb:hover {
-	background: rgb(103, 103, 103);
+*::-webkit-scrollbar {
+	display: none;
 }
 
 div a:hover {
@@ -36,7 +24,7 @@ div a {
 	top: 13px;
 }
 
-.css-1mudpii-MuiStack-root:hover button{
+.css-cf5i0w-MuiStack-root:hover button{
 	opacity: 1;
 	bottom: 105px;
 }

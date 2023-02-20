@@ -66,16 +66,16 @@ export default function Home() {
   return (
     <Layout>
       {
-        playlists.length === 0 ? <Stack sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: "center" }}>
+        playlists.length == 0 ? <Stack sx={{ position: 'absolute', top: '44%', left: '52%' }}>
           <div className="loading">
             <span className="blob1 blob"></span>
             <span className="blob2 blob"></span>
             <span className="blob3 blob"></span>
           </div>
-        </Stack> : <Stack sx={{ width: '100%', height: "100%", padding: "20px 0px", gap: "10px" }}>
+        </Stack> : <Stack sx={{ width: '100%', gap: "10px" }}>
           <Stack sx={{ gap: '15px' }}>
             <Typography sx={{ fontSize: '28px', color: "white", textDecoration: 'none', fontWeight: '700', lineHeight: "70px" }} >Have a good day </Typography>
-            <Stack sx={{ color: 'white', mb: "20px", gap: '24px', flexDirection: "row", flexWrap: 'wrap', width: '100%' }}>
+            <Stack sx={{ color: 'white', mb: "20px", gap: '24px', flexDirection: "row", flexWrap: 'wrap', width: '96.6%' }}>
               {
                 playlists.slice(0, 6).map((item: any) => <EveryDay item={item} key={item.name} />)
               }
@@ -83,7 +83,7 @@ export default function Home() {
           </Stack>
           <Stack sx={{ gap: '15px', mb: "20px" }}>
             <Link href="/albums" sx={[{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px", textDecoration: 'none' }, { '&:hover': { textDecoration: 'underline white' } }]}>Albums that can be liked by you</Link>
-            <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
+            <Stack sx={{ width: "100%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
               {
                 albums.slice(0, 5).map((item: any) => <BestMixes item={item} key={item.name} />)
               }
@@ -91,7 +91,7 @@ export default function Home() {
           </Stack>
           <Stack sx={{ gap: '15px', mb: "20px" }}>
             <Link href="/categories" sx={[{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px", textDecoration: 'none' }, { '&:hover': { textDecoration: 'underline white' } }]}>Categories</Link>
-            <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
+            <Stack sx={{ width: "100%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
               {
                 categories.slice(0, 5).map((item: any) => <Categories item={item} key={item.name} />)
               }
@@ -99,7 +99,7 @@ export default function Home() {
           </Stack>
           <Stack sx={{ gap: '15px', mb: "20px" }}>
             <Link href="/artists/1kmpkcYbuaZ8tnFejLzkj2" sx={[{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px", textDecoration: 'none' }, { '&:hover': { textDecoration: 'underline white' } }]}>Who likes Miyagi</Link>
-            <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
+            <Stack sx={{ width: "100%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
               {
                 artsitsAlbums.slice(0, 5).map((item: any) => <BestMixes item={item} key={item.name} />)
               }
@@ -107,7 +107,7 @@ export default function Home() {
           </Stack>
           <Stack sx={{ gap: '15px', mb: "20px" }}>
             <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px", textDecoration: 'none' }}>Realted artists to Miyagi</Typography>
-            <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
+            <Stack sx={{ width: "100%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
               {
                 related.slice(0, 5).map((item: any) => <Aritsts item={item} key={item.name} />)
               }

@@ -14,9 +14,7 @@ const EveryDay: React.FC<Props> = ({ item }) => {
   return (
     <Link href={`/playlists/${item.id}`} style={{ width: '32%', textDecoration: 'none', color: 'white' }} >
       <Stack sx={[{ width: '100%', position: "relative", alignItems: "center", flexDirection: "row", borderRadius: '10px', overflow: 'hidden', maxHeight: "75px", background: "rgba(255, 255, 255, 0.1);", cursor: 'pointer', transition: ".3s ease" }, { '&:hover': { background: "rgba(255, 255, 255, 0.2);" } }]}>
-        <Stack sx={{ width: '75px', height: '75px' }}>
-          <img src={!item.images[0]?.url ? image : item.images[0]?.url} style={{ width: "100%" }} alt="" />
-        </Stack>
+        <img src={!item.images[0]?.url ? image : item.images[0]?.url} style={{ width: "75px", objectFit: 'cover', height: '100%' }} alt="" />
         <Stack sx={{ padding: '25px' }}>
           <Typography sx={{ fontSize: "17px", fontWeight: "600" }}>{item.name}</Typography>
         </Stack>
