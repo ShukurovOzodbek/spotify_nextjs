@@ -84,7 +84,7 @@ const current = () => {
     <Layout>
       <Stack sx={{ width: '100%', gap: "20px" }}>
         <Stack sx={{ width: '100%', flexDirection: 'row', gap: '20px', alignItems: 'flex-end' }} id="div">
-          <img width={'220px'} height={'220px'} style={{ borderRadius: '100%', objectFit: 'cover', boxShadow: '2px 2px 37px 12px rgba(34, 60, 80, 0.2)' }} src={artistImage} alt="" />
+          <img width={'220px'} height={'220px'} style={{ borderRadius: '100%', objectFit: 'cover', boxShadow: '2px 2px 37px 12px rgba(34, 60, 80, 0.2)' }} src={artistImage || image} alt="" />
           <Stack sx={{ gap: '15px', mb: "15px" }}>
             <Stack sx={{ color: 'white', flexDirection: 'row', alignItems: "center", gap: "10px" }}>
               <CheckIcon />

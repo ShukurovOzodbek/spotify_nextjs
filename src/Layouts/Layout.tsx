@@ -66,12 +66,14 @@ const Layout: FC<Props> = ({ children, background }) => {
     const [images, setImages] = useState("")
     const [value, setValue] = useState<any>({})
     const [searchKey, setSearchKey] = useState('')
+    const [user, setUser] = useState<any>({})
+
     const image = 'https://i.ytimg.com/vi/pvlakjE8h6Q/maxresdefault.jpg'
     const router = useRouter()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const dispatch = useDispatch<any>()
-    
+
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -101,6 +103,7 @@ const Layout: FC<Props> = ({ children, background }) => {
                 .then(res => {
                     setName(res.data.display_name)
                     setImages(res?.data?.images[0]?.url)
+                    setUser(res.data)
                 })
         }
         set()
@@ -120,20 +123,20 @@ const Layout: FC<Props> = ({ children, background }) => {
         getAllAlbums()
     }, [])
 
+
     const logOut = () => {
         localStorage.clear()
         router.push('/login')
     }
 
     useEffect(() => {
-        if(router.asPath === '/search') {
-            let a:any = document.querySelector('.input')
+        if (router.asPath === '/search') {
+            let a: any = document.querySelector('.input')
             a.focus()
         }
     }, [])
-
     useEffect(() => {
-        let inp:any = document.querySelector('.input')
+        let inp: any = document.querySelector('.input')
         let token = localStorage.getItem('token')
         inp.onkeyup = () => {
             localStorage.setItem('searchKey', JSON.stringify(searchKey))
@@ -159,7 +162,7 @@ const Layout: FC<Props> = ({ children, background }) => {
                 <Stack sx={{ width: '100%', borderBottom: '1px solid gray' }}></Stack>
                 <Stack sx={{ gap: "10px" }}>
                     {
-                        myData.map((item: any) => <Link style={{ color: "white", textDecoration: 'none', fontWeight: '400', opacity: router.asPath.split('/')[2] === item.id ? '1' : '0.4' }} href={`/playlists/${item.id}`} key={item.id} >{item.name.split(' ').length > 3  ? item.name.split(' ').slice(0, 3).join(' ') : item.name }</Link>)
+                        myData.map((item: any) => <Link style={{ color: "white", textDecoration: 'none', fontWeight: '400', opacity: router.asPath.split('/')[2] === item.id ? '1' : '0.4' }} href={`/playlists/${item.id}`} key={item.id} >{item.name.split(' ').length > 3 ? item.name.split(' ').slice(0, 3).join(' ') : item.name}</Link>)
                     }
                 </Stack>
             </Stack>
@@ -243,7 +246,7 @@ const Layout: FC<Props> = ({ children, background }) => {
                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                     >
-                        <MenuItem onClick={() => router.push('/profile')}>
+                        <MenuItem onClick={() => router.push(`/user/${user.id}`)}>
                             <Avatar /> Profile
                         </MenuItem>
                         <Divider />
