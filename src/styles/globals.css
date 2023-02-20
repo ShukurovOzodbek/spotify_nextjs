@@ -209,12 +209,6 @@ ol {
 	vertical-align: initial;
 }
 
-.rhap_header {
-}
-
-.rhap_footer {
-}
-
 .rhap_main {
 	display: flex;
 	flex-direction: column-reverse;
