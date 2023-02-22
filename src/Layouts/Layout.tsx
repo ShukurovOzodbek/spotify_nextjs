@@ -47,9 +47,9 @@ const linksArr = [
 ]
 
 const liked = {
-    path: "/liked",
+    path: "/create-playlist",
     svg: "liked",
-    text: "Liked songs"
+    text: "Create Playlist"
 }
 
 interface IArg {
@@ -102,6 +102,7 @@ const Layout: FC<Props> = ({ children, background }) => {
                     setName(res.data.display_name)
                     setImages(res?.data?.images[0]?.url)
                     setUser(res.data)
+                    localStorage.setItem('display_name', JSON.stringify(res.data.display_name))
                 })
         }
         set()
@@ -145,22 +146,6 @@ const Layout: FC<Props> = ({ children, background }) => {
         }
     }, [searchKey])
 
-    async function getAllAlbums() {
-        let token = localStorage.getItem('token')
-        await axios.post("https://api.spotify.com/v1/users/31odxqa66wuuaaq7wzuzfoxkzqkq/playlists", {
-            "name": "New Playlist",
-            "public": false,
-            "description": "New playlist description",
-        }, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        }).then(res => {
-            console.log(res);
-        })
-    }
-
     return (
         <Stack sx={{ width: "100%", height: '100vh', flexDirection: 'row' }} >
             <Stack sx={{ width: '17%', height: '100%', padding: '0 30px', display: 'flex', gap: "20px", background: 'black' }}>
@@ -172,7 +157,7 @@ const Layout: FC<Props> = ({ children, background }) => {
                         linksArr.map((i: IArg) => <Links item={i} key={i.svg} />)
                     }
                 </Stack>
-                {/* <Links item={liked} mt='20px' /> */}
+                <Links item={liked} clas={'a'} mt='20px' />
                 <Stack sx={{ width: '100%', borderBottom: '1px solid gray' }}></Stack>
                 <Stack sx={{ gap: "10px" }}>
                     {
@@ -192,7 +177,6 @@ const Layout: FC<Props> = ({ children, background }) => {
                     src={value.uri}
                 />
                 <Stack>
-                    <button onClick={getAllAlbums}>getAllAlbums</button>
                 </Stack>
             </Stack>
             <Stack sx={{ width: '83%', height: '100vh', background: 'linear-gradient(180deg, #1E1E1E 40%, #000000 100%)' }}>

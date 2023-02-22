@@ -32,7 +32,6 @@ const playlistId = () => {
         setMyData(res.data.items)
         setArtistsName(res.data.items[0].track.album.artists[0].name)
       }).catch((e) => { 
-        router.push('/404')
       });
     }
     getAllAlbums()

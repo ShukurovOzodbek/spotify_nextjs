@@ -16,7 +16,7 @@ const handleSubmit = (name: any) => {
 const BestMixes: React.FC<Props> = ({ item }) => {
     return (
         <Link href={`/albums/${item.id}`} onClick={() => handleSubmit(item.name)} style={{ width: '17.6%', textDecoration: 'none', color: 'white' }}>
-            <Stack sx={[{ width: '100%', minHeight: '300px', position: "relative", borderRadius: '10px', overflow: 'hidden', background: "rgba(255, 255, 255, 0.1);", cursor: 'pointer', transition: ".3s ease", padding: "13px", gap: "10px" }, { '&:hover': { background: "rgba(255, 255, 255, 0.2);" } }]}>
+            <Stack sx={[{ width: '100%', height: '100%', position: "relative", borderRadius: '10px', overflow: 'hidden', background: "rgba(255, 255, 255, 0.1);", cursor: 'pointer', transition: ".3s ease", padding: "13px", gap: "10px" }, { '&:hover': { background: "rgba(255, 255, 255, 0.2);" } }]}>
                 <img src={item.images[0].url} style={{ width: "100%", borderRadius: '10px' }} alt="" />
                 <Stack sx={{ gap: "10px" }}>
                     <Typography sx={{ fontSize: "16px", fontWeight: "600" }}>{item.name}</Typography>
