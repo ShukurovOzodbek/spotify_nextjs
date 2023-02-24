@@ -22,7 +22,7 @@ const createplaylist = () => {
 
     const image = 'https://i.ytimg.com/vi/pvlakjE8h6Q/maxresdefault.jpg'
     const router = useRouter()
-    const { value } = useContext(playlistContext)
+    const { value } = useContext<any>(playlistContext)
     const id = router.asPath.split('/')[2]
     const img = useRef(null)
     const data: any = myData[0]
@@ -31,7 +31,6 @@ const createplaylist = () => {
 
     const myTracks = useSelector((state: any) => state.tracks.tracks)
     const dispatch = useDispatch<any>()
-
     useEffect(() => {
         setPlaylist(value)
 
@@ -57,7 +56,7 @@ const createplaylist = () => {
     useEffect(() => {
         async function getAllAlbums() {
             let token = localStorage.getItem('token')
-            await axios.get(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, {
+            await axios.get(`https://api.spotify.com/v1/playlists/${value.id}/tracks`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -74,7 +73,7 @@ const createplaylist = () => {
         router.push('/')
 
         let token = localStorage.getItem('token')
-        await axios.put(`https://api.spotify.com/v1/playlists/` + playlist.id, {
+        await axios.put(`https://api.spotify.com/v1/playlists/` + value.id, {
             "name": valueName,
             "description": "Updated playlist description",
             "public": true
