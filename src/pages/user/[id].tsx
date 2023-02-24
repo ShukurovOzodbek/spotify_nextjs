@@ -58,7 +58,7 @@ const current = () => {
           </Stack>
         </Stack>
         <Stack sx={{ width: "100%" }}>
-          <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px" }}>Your Playlits</Typography>
+          <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px" }}>Your Playlists</Typography>
           <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
             {
               userPlaylists.map((item: any) => <Playlists item={item} key={item.name} />)

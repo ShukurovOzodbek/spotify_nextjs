@@ -22,6 +22,7 @@ import { songContext } from '@/contexts/songContext'
 import { useDispatch } from 'react-redux'
 import { fetchTracks } from '@/store/features/tracks/tracksThunk'
 import { fetchAritsts, searchAlbums } from '@/store/features/albums/albumThunk'
+import { userAgent } from 'next/server'
 
 
 interface Props {
@@ -46,11 +47,6 @@ const linksArr = [
     }
 ]
 
-const liked = {
-    path: "/create-playlist",
-    svg: "liked",
-    text: "Create Playlist"
-}
 
 interface IArg {
     path: string,
@@ -89,7 +85,12 @@ const Layout: FC<Props> = ({ children, background }) => {
         doc.autostart = "false"
         doc.autostart = '0'
     }, [])
-
+    const liked = {
+        path: "/create-playlist",
+        svg: "liked",
+        text: "Create Playlist",
+        id: user.id
+    }
     useEffect(() => {
         async function set() {
             let token = localStorage.getItem('token')
@@ -111,7 +112,7 @@ const Layout: FC<Props> = ({ children, background }) => {
     useEffect(() => {
         async function getAllAlbums() {
             let token = localStorage.getItem('token')
-            await axios.get("https://api.spotify.com/v1/users/31odxqa66wuuaaq7wzuzfoxkzqkq/playlists?limit=50", {
+            await axios.get(`https://api.spotify.com/v1/me/playlists?limit=50`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },

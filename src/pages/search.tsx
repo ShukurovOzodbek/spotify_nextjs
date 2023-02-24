@@ -44,7 +44,7 @@ const search = () => {
     return (
       <Stack sx={{ gap: "10px и " }}>
         <Link style={{ textDecoration: 'none' }} href="/categories">
-          <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px" }}>Genres made for you</Typography>
+          <Typography sx={{ color: 'white', fontSize: '24px', fontWeight: '900', lineHeight: "70px", textDecoration: 'none' }}>Genres made for you</Typography>
         </Link>
         <Stack sx={{ width: "102%", color: 'white', mb: "20px", gap: '30px', flexDirection: "row", flexWrap: 'wrap' }}>
           {

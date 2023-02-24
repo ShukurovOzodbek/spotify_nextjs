@@ -5,8 +5,8 @@ import React, { useEffect, useState } from 'react'
 
 const login = () => {
     const CLIENT_ID = "4109f1d797b647deb42f11dd69907b49"
-    const REDIRECT_URI = "http://localhost:3000/login"
-    // const REDIRECT_URI = "https://cln-spotify.netlify.app/login"
+    // const REDIRECT_URI = "http://localhost:3000/login"
+    const REDIRECT_URI = "https://cln-spotify.netlify.app/login"
     var state = 16
 
     var url = 'https://accounts.spotify.com/authorize';

@@ -24,7 +24,10 @@ div a {
 	top: 13px;
 }
 
-.css-cf5i0w-MuiStack-root:hover button{
+.rhap_rewind-button{
+	display: none;
+}
+.css-box-model:hover button{
 	opacity: 1;
 	bottom: 105px;
 }
