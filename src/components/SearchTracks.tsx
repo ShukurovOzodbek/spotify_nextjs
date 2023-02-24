@@ -5,7 +5,7 @@ import { Button } from '@mui/material'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { fetchTracks } from '@/store/features/tracks/tracksThunk'
-import { addContext } from '@/contexts/addContext'
+import { playlistContext } from '@/contexts/playlistContext'
 
 interface IProps {
     images: string,
@@ -19,14 +19,13 @@ const SearchTrack: React.FC<IProps> = ({ images, image, i, id, width }) => {
     const [duration_ms, setDuration_ms] = useState(i.duration_ms || i.track.duration_ms)
     const dispatch = useDispatch<any>()
     
-    const { val, changeAdd } = useContext(addContext)
+    const { value } = useContext<any>(playlistContext)
     let arr:any = []
-
     const addTrack = async (item: any, e: any) => {
         e.target.innerHTML = 'Added'
         let token = localStorage.getItem('token')
         arr = [...arr, item.uri]
-        await axios.post(`https://api.spotify.com/v1/playlists/${id}/tracks`,
+        await axios.post(`https://api.spotify.com/v1/playlists/${value.id}/tracks`,
             {
                 "uris": arr,
                 "position": 0
@@ -37,7 +36,6 @@ const SearchTrack: React.FC<IProps> = ({ images, image, i, id, width }) => {
                 },
             })
             .then((res) => {
-                changeAdd(res.data)
             })
         let inp: any = document.querySelector('.hel')
         inp.value = ''

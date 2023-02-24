@@ -34,6 +34,7 @@ const Links: React.FC<Props> = ({ item, mt, clas }) => {
                 }
             }).then(res => {
                 changeAddPlaylist(res.data);
+                console.log(res.data);                
             })
         }
     }, [item.id])

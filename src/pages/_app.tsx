@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 export default function App({ Component, pageProps }: AppProps) {
   const [val, setVal] = useState({})
-  const [value, setValue] = useState({})
+  const [value, setValue] = useState<any>({})
 
   const changeSong = (data: any) => {
     setVal(data)

@@ -34,11 +34,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/create-playlist.js"
-    ],
-    "/playlists/[id]": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/playlists/[id].js"
     ]
   },
   "ampFirstPages": []
